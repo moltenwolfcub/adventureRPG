@@ -3,6 +3,7 @@ package com.moltenwolfcub.adventurerpg;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 import com.moltenwolfcub.adventurerpg.util.QuadDirAnimation;
 
@@ -13,8 +14,11 @@ public class Player {
 	private int playerX = 0;
 	private int playerY = 0;
 	private PlayerDir playerDir = PlayerDir.DOWN;
+
     private QuadDirAnimation walkingAnimation;
 	private int animationFrame = 1;
+	private float animationSpeed = 3f;
+	private TextureRegion currentTexture;
 
 	private double joyX = 0;
 	private double joyY = 0;
@@ -25,8 +29,9 @@ public class Player {
 
 		this.sprite = game.spriteTextureAtlas.createSprite("player/Idle"+playerDir.getTextureSuffix());
 		this.sprite.setScale(2);
+		setTexture(game.spriteTextureAtlas.findRegion("player/Idle"+playerDir.getTextureSuffix()));
 
-        walkingAnimation = new QuadDirAnimation(3f,
+        walkingAnimation = new QuadDirAnimation(animationSpeed,
             game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.UP.getTextureSuffix()),
             game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.DOWN.getTextureSuffix()),
             game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.LEFT.getTextureSuffix()),
@@ -38,6 +43,10 @@ public class Player {
 		controls();
 		if (joyDist > 0) {
 			movement();
+			currentTexture = walkingAnimation.getKeyFrame(animationFrame, true);
+		} else {
+			currentTexture = getRotatedTexture("player/Idle");
+			animationFrame = 0;
 		}
 	}
 	private void movement() {
@@ -73,21 +82,23 @@ public class Player {
 	public void paint() {
 		sprite.setCenter(playerX, playerY);
 
-		// setRotatedTexture("player/Idle");
 		this.playerDir.updateQuadAnim(walkingAnimation);
-		sprite.setRegion(walkingAnimation.getKeyFrame(animationFrame, true));
+		setTexture(currentTexture);
 
 		sprite.draw(game.batch);
 	}
 
-	public void setRotatedTexture(String texture) {
-		setRotatedTexture(texture, "");
+	public TextureRegion getRotatedTexture(String texture) {
+		return getRotatedTexture(texture, "");
 	}
-	public void setRotatedTexture(String texture, String suffix) {
-		setTexture(texture+playerDir.getTextureSuffix()+suffix);
+	public TextureRegion getRotatedTexture(String texture, String suffix) {
+		return getTexture(texture+playerDir.getTextureSuffix()+suffix);
 	}
-	public void setTexture(String texture) {
-		sprite.setRegion(game.spriteTextureAtlas.findRegion(texture));
+	public TextureRegion getTexture(String texture) {
+		return game.spriteTextureAtlas.findRegion(texture);
+	}
+	public void setTexture(TextureRegion texture) {
+		sprite.setRegion(texture);
 	}
 
 	public static enum PlayerDir {
