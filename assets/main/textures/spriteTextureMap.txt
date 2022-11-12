@@ -1,5 +1,5 @@
 spriteTextureMap.png
-size: 64, 64
+size: 128, 128
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
@@ -31,30 +31,198 @@ stoneTile
   orig: 16, 16
   offset: 0, 0
   index: -1
-characterOneIdleBackward
+player/IdleBackward
   rotate: false
-  xy: 0, 16
+  xy: 64, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
-characterOneIdleForward
+player/IdleForward
   rotate: false
-  xy: 16, 16
+  xy: 80, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
-characterOneIdleLeft
+player/IdleLeft
   rotate: false
-  xy: 32, 16
+  xy: 96, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
-characterOneIdleRight
+player/IdleRight
   rotate: false
-  xy: 48, 16
+  xy: 112, 0
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkBackward0
+  rotate: false
+  xy: 0, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkBackward1
+  rotate: false
+  xy: 16, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkBackward2
+  rotate: false
+  xy: 32, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkBackward3
+  rotate: false
+  xy: 48, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkBackward4
+  rotate: false
+  xy: 64, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkBackward5
+  rotate: false
+  xy: 80, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkForward0
+  rotate: false
+  xy: 96, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkForward1
+  rotate: false
+  xy: 112, 32
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkForward2
+  rotate: false
+  xy: 0, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkForward3
+  rotate: false
+  xy: 16, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkForward4
+  rotate: false
+  xy: 32, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkForward5
+  rotate: false
+  xy: 48, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkLeft0
+  rotate: false
+  xy: 64, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkLeft1
+  rotate: false
+  xy: 80, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkLeft2
+  rotate: false
+  xy: 96, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkLeft3
+  rotate: false
+  xy: 112, 64
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkLeft4
+  rotate: false
+  xy: 0, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkLeft5
+  rotate: false
+  xy: 16, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkRight0
+  rotate: false
+  xy: 32, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkRight1
+  rotate: false
+  xy: 48, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkRight2
+  rotate: false
+  xy: 64, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkRight3
+  rotate: false
+  xy: 80, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkRight4
+  rotate: false
+  xy: 96, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: -1
+player/WalkRight5
+  rotate: false
+  xy: 112, 96
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
