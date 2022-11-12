@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.moltenwolfcub.adventurerpg.util.Constants;
+import com.moltenwolfcub.adventurerpg.util.QuadDirAnimation;
 
 public class Player {
 	private final Rpg game;
@@ -11,7 +12,9 @@ public class Player {
 	private Sprite sprite;
 	private int playerX = 0;
 	private int playerY = 0;
-	private PlayerDir playerDir = PlayerDir.UP;
+	private PlayerDir playerDir = PlayerDir.DOWN;
+    private QuadDirAnimation walkingAnimation;
+	private int animationFrame = 1;
 
 	private double joyX = 0;
 	private double joyY = 0;
@@ -22,6 +25,13 @@ public class Player {
 
 		this.sprite = game.spriteTextureAtlas.createSprite("player/Idle"+playerDir.getTextureSuffix());
 		this.sprite.setScale(2);
+
+        walkingAnimation = new QuadDirAnimation(3f,
+            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.UP.getTextureSuffix()),
+            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.DOWN.getTextureSuffix()),
+            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.LEFT.getTextureSuffix()),
+            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.RIGHT.getTextureSuffix())
+        );
     }
 
     public void tick() {
@@ -46,6 +56,7 @@ public class Player {
 		} else {
 			playerDir = PlayerDir.UP;
 		}
+		animationFrame += 1;
 	}
 	private void controls() {
 		joyX = Gdx.input.isKeyPressed(Keys.RIGHT) == true || Gdx.input.isKeyPressed(Keys.D) == true ? 1 : 0;
@@ -62,7 +73,9 @@ public class Player {
 	public void paint() {
 		sprite.setCenter(playerX, playerY);
 
-		setRotatedTexture("player/Idle");
+		// setRotatedTexture("player/Idle");
+		this.playerDir.updateQuadAnim(walkingAnimation);
+		sprite.setRegion(walkingAnimation.getKeyFrame(animationFrame, true));
 
 		sprite.draw(game.batch);
 	}
@@ -91,6 +104,15 @@ public class Player {
 
 		public String getTextureSuffix() {
 			return textureStringSuffix;
+		}
+
+		public void updateQuadAnim(QuadDirAnimation animation) {
+			switch (this) {
+				case UP: animation.setUp(); break;
+				case DOWN: animation.setDown(); break;
+				case LEFT: animation.setLeft(); break;
+				case RIGHT: animation.setRight(); break;
+			}
 		}
 	}
 }
