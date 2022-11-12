@@ -10,9 +10,9 @@ import com.moltenwolfcub.adventurerpg.util.QuadDirAnimation;
 public class Player {
 	private final Rpg game;
 
-	private Sprite sprite;
-	private int playerX = 0;
-	private int playerY = 0;
+	public final Sprite sprite;
+	public int playerX = 0;
+	public int playerY = 0;
 	private PlayerDir playerDir = PlayerDir.DOWN;
 
     private QuadDirAnimation walkingAnimation;
@@ -39,6 +39,10 @@ public class Player {
         );
     }
 
+	public void dispose() {
+		
+	}
+
     public void tick() {
 		controls();
 		if (joyDist > 0) {
@@ -48,6 +52,7 @@ public class Player {
 			currentTexture = getRotatedTexture("player/Idle");
 			animationFrame = 0;
 		}
+		
 	}
 	private void movement() {
 		if (joyDist > 1) {
@@ -79,8 +84,8 @@ public class Player {
 		playerY += dy;
 	}
 
-	public void paint() {
-		sprite.setCenter(playerX, playerY);
+	public void paint(int camX, int camY) {
+		sprite.setCenter(playerX- camX + Constants.DESKTOP_WINDOW_WIDTH/2, playerY- camY + Constants.DESKTOP_WINDOW_HEIGHT/2);
 
 		this.playerDir.updateQuadAnim(walkingAnimation);
 		setTexture(currentTexture);
