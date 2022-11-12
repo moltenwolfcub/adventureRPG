@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.moltenwolfcub.adventurerpg.Background;
 import com.moltenwolfcub.adventurerpg.Player;
 import com.moltenwolfcub.adventurerpg.Rpg;
+import com.moltenwolfcub.adventurerpg.Tiles;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
 public class GameScreen implements Screen {
@@ -17,6 +18,7 @@ public class GameScreen implements Screen {
 	public final Rpg game;
 
 	private Background background;
+	private Tiles tiles;
 	private Player player;
 
 	private boolean isLoopRunning = true;
@@ -31,6 +33,7 @@ public class GameScreen implements Screen {
 		view = new FitViewport(Constants.DESKTOP_WINDOW_WIDTH, Constants.DESKTOP_WINDOW_HEIGHT, camera);
 
 		this.background = new Background(game);
+		this.tiles = new Tiles(game);
 
 		this.player = new Player(this.game);
 	}
@@ -45,6 +48,7 @@ public class GameScreen implements Screen {
 		game.batch.begin();
 
 		this.background.paint(camX, camY);
+		this.tiles.paint(camX, camY);
 		this.player.paint(camX, camY);
 		
 		game.batch.end();
