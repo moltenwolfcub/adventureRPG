@@ -1,8 +1,8 @@
 package com.moltenwolfcub.adventurerpg.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -22,6 +22,7 @@ public class GameScreen implements Screen {
 	private Sprite player;
 	public int playerX = 0;
 	public int playerY = 0;
+	public PlayerDir playerDir = PlayerDir.UP;
 
 	private double joyX = 0;
 	private double joyY = 0;
@@ -42,13 +43,26 @@ public class GameScreen implements Screen {
 	private void tickPlayer() {
 		playerControls();
 		if (joyDist > 0) {
-			if (joyDist > 1) {
-				joyDist = Constants.PLAYER_DIAGONAL_SPEED_BONUS;
-			}
-			joyX = joyX/joyDist;
-			joyY = joyY/joyDist;
-			tryMove(Constants.PLAYER_SPEED_MULTIPLIER*joyX, Constants.PLAYER_SPEED_MULTIPLIER*joyY);
+			playerMovement();
 		}
+	}
+	private void playerMovement() {
+		if (joyDist > 1) {
+			joyDist = Constants.PLAYER_DIAGONAL_SPEED_BONUS;
+		}
+		joyX = joyX/joyDist;
+		joyY = joyY/joyDist;
+		tryMove(Constants.PLAYER_SPEED_MULTIPLIER*joyX, Constants.PLAYER_SPEED_MULTIPLIER*joyY);
+		if (joyX < 0) {
+			playerDir = PlayerDir.LEFT;
+		} else if (joyX > 0) {
+			playerDir = PlayerDir.RIGHT;
+		} else if (joyY < 0) {
+			playerDir = PlayerDir.DOWN;
+		} else {
+			playerDir = PlayerDir.UP;
+		}
+		setPlayerRotatedTexture("characterOneIdle");
 	}
 	private void playerControls() {
 		joyX = Gdx.input.isKeyPressed(Keys.RIGHT) == true || Gdx.input.isKeyPressed(Keys.D) == true ? 1 : 0;
@@ -97,7 +111,7 @@ public class GameScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		
+
 	}
 	@Override
 	public void resize(int width, int height) {
@@ -121,5 +135,29 @@ public class GameScreen implements Screen {
 	public void resume() {
 			
 	}
-		
+	
+	
+	public void setPlayerRotatedTexture(String texture) {
+		setPlayerTexture(texture+playerDir.getTextureSuffix());
+	}
+	public void setPlayerTexture(String texture) {
+		player.setRegion(game.spriteTextureAtlas.findRegion(texture));
+	}
+
+	public static enum PlayerDir {
+		DOWN("Forward"),
+		UP("Backward"),
+		LEFT("Left"),
+		RIGHT("Right");
+
+		private String textureStringSuffix;
+
+		private PlayerDir(String texStr) {
+			textureStringSuffix = texStr;
+		}
+
+		public String getTextureSuffix() {
+			return textureStringSuffix;
+		}
+	}
 }

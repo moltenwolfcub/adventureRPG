@@ -31,7 +31,7 @@ stoneTile
   orig: 16, 16
   offset: 0, 0
   index: -1
-characterOneIdleBackwards
+characterOneIdleBackward
   rotate: false
   xy: 0, 16
   size: 16, 32
