@@ -1,6 +1,7 @@
 package com.moltenwolfcub.adventurerpg;
 
 import com.badlogic.gdx.utils.Array;
+import com.moltenwolfcub.adventurerpg.util.Constants;
 
 public class LevelStorage {
     public Array<Integer> GRID = new Array<>();
@@ -18,13 +19,13 @@ public class LevelStorage {
         GRID.clear();
         GMAX = 32;
         
-        addMultipleTilesToGrid(GMAX, 24);
+        addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));
         for (int i = 0; i < GMAX-2; i++) {
-            GRID.add(24);
+            GRID.add(Constants.TILE_MAPPING_STR2ID.get("bush1"));
             addMultipleTilesToGrid(GMAX-2, 0);
-            GRID.add(24);
+            GRID.add(Constants.TILE_MAPPING_STR2ID.get("bush1"));
         }
-        addMultipleTilesToGrid(GMAX, 24);
+        addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));
         System.out.println(GRID.size);
     }
 

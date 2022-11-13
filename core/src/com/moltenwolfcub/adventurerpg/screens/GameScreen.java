@@ -39,6 +39,8 @@ public class GameScreen implements Screen {
 		this.tiles = new Tiles(game, levelStorage);
 
 		this.player = new Player(this.game);
+
+        System.out.println(Constants.TILE_MAPPING_STR2ID);
 	}
 
 	private void draw() {

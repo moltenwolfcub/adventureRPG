@@ -39,7 +39,7 @@ public class Tiles {
                 int gidx = j*levelStorage.GMAX+i;
                 int tileId = levelStorage.GRID.get(gidx);
                 if (tileId != 0) {
-                    String tileTextureName = Constants.TILE_MAPPING.get(tileId);
+                    String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
                     this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
     
                     game.batch.draw(currentTexture, originX+tileSizeW*i, originY+tileSizeH*j, tileSizeW, tileSizeH);
