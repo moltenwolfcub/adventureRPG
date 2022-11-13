@@ -31,13 +31,26 @@ public class Tiles {
         int tileSizeW = currentTexture.getRegionWidth()*2;
         int tileSizeH = currentTexture.getRegionHeight()*2;
 
-		originX = 0-camX;
-        originY = 0-camY;
+        int gx = camX;
+        int gy = camY;
 
-        for (int j = 0; j < levelStorage.GMAX; j++) {
-            for (int i = 0; i < levelStorage.GMAX; i++) {
-                int gidx = j*levelStorage.GMAX+i;
-                int tileId = levelStorage.GRID.get(gidx);
+
+		originX = 0-Math.floorMod(gx, 32);
+        originY = 0-Math.floorMod(gy, 32);
+
+        for (int j = 0; j < Math.floorDiv(Constants.DESKTOP_WINDOW_HEIGHT, 32)+2; j++) {
+            for (int i = 0; i < Math.floorDiv(Constants.DESKTOP_WINDOW_WIDTH, 32)+1; i++) {
+                
+                int gidx = Math.floorDiv(gx, 32);
+                gidx += levelStorage.GMAX*Math.floorDiv(gy, 32);
+                gidx += j*levelStorage.GMAX+i;
+
+                int tileId;
+                try {
+                    tileId = levelStorage.GRID.get(gidx);
+                } catch (IndexOutOfBoundsException exception) {
+                    tileId = 0;
+                }
                 if (tileId != 0) {
                     String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
                     this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
