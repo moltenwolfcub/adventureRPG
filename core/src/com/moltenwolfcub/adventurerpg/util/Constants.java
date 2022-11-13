@@ -12,10 +12,10 @@ public abstract class Constants {
     public static final int BACKGROUND_TILES_HEIGHT = 13;
 
     public static final int PLAYER_SPEED_MULTIPLIER = 3;
-    public static final double PLAYER_DIAGONAL_SPEED_BONUS = 1.25;
+    public static final double PLAYER_DIAGONAL_SPEED_BONUS = 0.75; //smaller the faster
 
     public static final Map<Integer, String> TILE_MAPPING_ID2STR = new HashMap<Integer, String>() {{
-        put(0, "debug.air"); //should not ever be referenced
+        put(0, "debug.air"); //should not ever be referenced when drawing
         put(1, "debug.missing");
         put(21, "grass");
         put(22, "blueGrass");
