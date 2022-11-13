@@ -1,10 +1,10 @@
 package com.moltenwolfcub.adventurerpg;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.moltenwolfcub.adventurerpg.util.Constants;
+import com.moltenwolfcub.adventurerpg.util.Keybinds;
 import com.moltenwolfcub.adventurerpg.util.QuadDirAnimation;
 
 public class Player {
@@ -73,10 +73,10 @@ public class Player {
 		animationFrame += 1;
 	}
 	private void controls() {
-		joyX = Gdx.input.isKeyPressed(Keys.RIGHT) == true || Gdx.input.isKeyPressed(Keys.D) == true ? 1 : 0;
-		joyX -= Gdx.input.isKeyPressed(Keys.LEFT) == true || Gdx.input.isKeyPressed(Keys.A) == true ? 1 : 0;
-		joyY = Gdx.input.isKeyPressed(Keys.UP) == true || Gdx.input.isKeyPressed(Keys.W) == true ? 1 : 0;
-		joyY -= Gdx.input.isKeyPressed(Keys.DOWN) == true || Gdx.input.isKeyPressed(Keys.S) == true ? 1 : 0;
+		joyX = Gdx.input.isKeyPressed(Keybinds.RIGHT.getKeyCode()) == true ? 1 : 0;
+		joyX -= Gdx.input.isKeyPressed(Keybinds.LEFT.getKeyCode()) == true ? 1 : 0;
+		joyY = Gdx.input.isKeyPressed(Keybinds.FORWARDS.getKeyCode()) == true ? 1 : 0;
+		joyY -= Gdx.input.isKeyPressed(Keybinds.BACKWARDS.getKeyCode()) == true ? 1 : 0;
 		joyDist = Math.sqrt(joyX*joyX+joyY*joyY);
 	}
 	private void tryMove(double dx, double dy) {
