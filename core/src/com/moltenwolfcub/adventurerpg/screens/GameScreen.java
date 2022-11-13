@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.moltenwolfcub.adventurerpg.Background;
+import com.moltenwolfcub.adventurerpg.LevelStorage;
 import com.moltenwolfcub.adventurerpg.Player;
 import com.moltenwolfcub.adventurerpg.Rpg;
 import com.moltenwolfcub.adventurerpg.Tiles;
@@ -19,6 +20,7 @@ public class GameScreen implements Screen {
 
 	private Background background;
 	private Tiles tiles;
+	private LevelStorage levelStorage;
 	private Player player;
 
 	private boolean isLoopRunning = true;
@@ -33,7 +35,8 @@ public class GameScreen implements Screen {
 		view = new FitViewport(Constants.DESKTOP_WINDOW_WIDTH, Constants.DESKTOP_WINDOW_HEIGHT, camera);
 
 		this.background = new Background(game);
-		this.tiles = new Tiles(game);
+		this.levelStorage = new LevelStorage();
+		this.tiles = new Tiles(game, levelStorage);
 
 		this.player = new Player(this.game);
 	}

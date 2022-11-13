@@ -1,243 +1,243 @@
 spriteTextureMap.png
-size: 32, 512
+size: 64, 256
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
-debug.missing
-  rotate: false
-  xy: 0, 0
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-tiles/blueGrass
-  rotate: false
-  xy: 16, 0
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-tiles/bush1
-  rotate: false
-  xy: 0, 16
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-tiles/grass
-  rotate: false
-  xy: 16, 16
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-tiles/sign1
-  rotate: false
-  xy: 0, 32
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
-tiles/stone
-  rotate: false
-  xy: 16, 32
-  size: 16, 16
-  orig: 16, 16
-  offset: 0, 0
-  index: -1
 player/IdleBackward
   rotate: false
-  xy: 0, 48
+  xy: 0, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 player/IdleForward
   rotate: false
-  xy: 16, 48
+  xy: 16, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 player/IdleLeft
   rotate: false
-  xy: 0, 80
+  xy: 32, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 player/IdleRight
   rotate: false
-  xy: 16, 80
+  xy: 48, 0
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: -1
 player/WalkBackward
   rotate: false
-  xy: 0, 112
+  xy: 0, 32
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 0
 player/WalkBackward
   rotate: false
-  xy: 16, 112
+  xy: 16, 32
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 1
 player/WalkBackward
   rotate: false
-  xy: 0, 144
+  xy: 32, 32
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 2
 player/WalkBackward
   rotate: false
-  xy: 16, 144
+  xy: 48, 32
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 3
 player/WalkBackward
   rotate: false
-  xy: 0, 176
+  xy: 0, 64
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 4
 player/WalkBackward
   rotate: false
-  xy: 16, 176
+  xy: 16, 64
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 5
 player/WalkForward
   rotate: false
-  xy: 0, 208
+  xy: 32, 64
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 0
 player/WalkForward
   rotate: false
-  xy: 16, 208
+  xy: 48, 64
   size: 16, 32
   orig: 16, 32
   offset: 0, 0
   index: 1
 player/WalkForward
+  rotate: false
+  xy: 0, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+player/WalkForward
+  rotate: false
+  xy: 16, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 3
+player/WalkForward
+  rotate: false
+  xy: 32, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 4
+player/WalkForward
+  rotate: false
+  xy: 48, 96
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 5
+player/WalkLeft
+  rotate: false
+  xy: 0, 128
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+player/WalkLeft
+  rotate: false
+  xy: 16, 128
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+player/WalkLeft
+  rotate: false
+  xy: 32, 128
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+player/WalkLeft
+  rotate: false
+  xy: 48, 128
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 3
+player/WalkLeft
+  rotate: false
+  xy: 0, 160
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 4
+player/WalkLeft
+  rotate: false
+  xy: 16, 160
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 5
+player/WalkRight
+  rotate: false
+  xy: 32, 160
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 0
+player/WalkRight
+  rotate: false
+  xy: 48, 160
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 1
+player/WalkRight
+  rotate: false
+  xy: 0, 192
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 2
+player/WalkRight
+  rotate: false
+  xy: 16, 192
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 3
+player/WalkRight
+  rotate: false
+  xy: 32, 192
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 4
+player/WalkRight
+  rotate: false
+  xy: 48, 192
+  size: 16, 32
+  orig: 16, 32
+  offset: 0, 0
+  index: 5
+tiles/blueGrass
+  rotate: false
+  xy: 0, 224
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/bush1
+  rotate: false
+  xy: 16, 224
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/debug.missing
+  rotate: false
+  xy: 32, 224
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/grass
+  rotate: false
+  xy: 48, 224
+  size: 16, 16
+  orig: 16, 16
+  offset: 0, 0
+  index: -1
+tiles/sign1
   rotate: false
   xy: 0, 240
-  size: 16, 32
-  orig: 16, 32
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
-  index: 2
-player/WalkForward
+  index: -1
+tiles/stone
   rotate: false
   xy: 16, 240
-  size: 16, 32
-  orig: 16, 32
+  size: 16, 16
+  orig: 16, 16
   offset: 0, 0
-  index: 3
-player/WalkForward
-  rotate: false
-  xy: 0, 272
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 4
-player/WalkForward
-  rotate: false
-  xy: 16, 272
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 5
-player/WalkLeft
-  rotate: false
-  xy: 0, 304
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 0
-player/WalkLeft
-  rotate: false
-  xy: 16, 304
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 1
-player/WalkLeft
-  rotate: false
-  xy: 0, 336
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 2
-player/WalkLeft
-  rotate: false
-  xy: 16, 336
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 3
-player/WalkLeft
-  rotate: false
-  xy: 0, 368
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 4
-player/WalkLeft
-  rotate: false
-  xy: 16, 368
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 5
-player/WalkRight
-  rotate: false
-  xy: 0, 400
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 0
-player/WalkRight
-  rotate: false
-  xy: 16, 400
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 1
-player/WalkRight
-  rotate: false
-  xy: 0, 432
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 2
-player/WalkRight
-  rotate: false
-  xy: 16, 432
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 3
-player/WalkRight
-  rotate: false
-  xy: 0, 464
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 4
-player/WalkRight
-  rotate: false
-  xy: 16, 464
-  size: 16, 32
-  orig: 16, 32
-  offset: 0, 0
-  index: 5
+  index: -1
