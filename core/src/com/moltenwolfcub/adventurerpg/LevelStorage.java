@@ -1,5 +1,7 @@
 package com.moltenwolfcub.adventurerpg;
 
+import java.util.Random;
+
 import com.badlogic.gdx.utils.Array;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
@@ -29,8 +31,23 @@ public class LevelStorage {
     }
 
     private void addMultipleTilesToGrid(int count, int tile) {
+        Random random = new Random();
         for (int i = 0; i < count; i++) {
-            GRID.add(tile);
+            if (tile == 0) {
+                GRID.add(
+                    switch (random.nextInt(125)) {
+                        case 0 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
+                        case 1 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
+                        case 2 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
+                        case 3 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
+                        case 4 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
+                        case 5 -> Constants.TILE_MAPPING_STR2ID.get("sign1");
+                        default -> tile;
+                    }
+                );
+            } else {
+                GRID.add(tile);
+            }
         }
     }
     
