@@ -39,8 +39,6 @@ public class GameScreen implements Screen {
 		this.tiles = new Tiles(game, levelStorage);
 
 		this.player = new Player(this.game);
-
-        System.out.println(Constants.TILE_MAPPING_STR2ID);
 	}
 
 	private void draw() {
@@ -65,25 +63,9 @@ public class GameScreen implements Screen {
 	@Override
 	public void render(float delta) {
 		if (isLoopRunning) {
-			//region temporary cam control
-			// if (Gdx.input.isKeyPressed(Keys.L)) {
-			// 	camX +=4;
-			// }
-			// if (Gdx.input.isKeyPressed(Keys.J)) {
-			// 	camX -=4;
-			// }
-			// if (Gdx.input.isKeyPressed(Keys.I)) {
-			// 	camY +=4;
-			// }
-			// if (Gdx.input.isKeyPressed(Keys.K)) {
-			// 	camY -=4;
-			// }
-			//endregion temporary
-
-
 			this.player.tick();
-			camX = player.playerX;
-			camY = player.playerY;
+			camX = Math.min(Math.max(player.playerX, 0), levelStorage.GMAX*32- Constants.DESKTOP_WINDOW_WIDTH);
+			camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*32- Constants.DESKTOP_WINDOW_HEIGHT);
 			draw();
 		}	
 	}
