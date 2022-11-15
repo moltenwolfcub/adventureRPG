@@ -20,6 +20,7 @@ public class Editor {
 
         this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
         this.selectionOutline.setBounds(0, 0, 36, 36);
+        this.selectionOutline.setAlpha(0.7f);
     }
 
 
