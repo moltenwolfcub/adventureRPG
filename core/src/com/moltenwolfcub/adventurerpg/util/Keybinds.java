@@ -5,11 +5,14 @@ import com.badlogic.gdx.Input.Keys;
 public abstract class Keybinds {
     public static final KeybindCategory MISC = new KeybindCategory("Miscellaneous");
     public static final KeybindCategory MOVEMENT = new KeybindCategory("Movement");
+    public static final KeybindCategory EDITOR = new KeybindCategory("Level Editor");
 
     public static final Keybind FORWARDS = new Keybind("Forwards", MOVEMENT, Keys.W);
     public static final Keybind BACKWARDS = new Keybind("Backwards", MOVEMENT, Keys.S);
     public static final Keybind LEFT = new Keybind("Left", MOVEMENT, Keys.A);
     public static final Keybind RIGHT = new Keybind("Right", MOVEMENT, Keys.D);
+
+    public static final Keybind TOGGLE_EDITOR = new Keybind("Toggle Editor", EDITOR, Keys.NUM_0);
 
     public static class Keybind {
         public final KeybindCategory keybindCategory;

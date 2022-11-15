@@ -14,6 +14,8 @@ public abstract class Constants {
     public static final int PLAYER_SPEED_MULTIPLIER = 3;
     public static final double PLAYER_DIAGONAL_SPEED_BONUS = 0.99; //smaller the faster
 
+    public static final int TILE_SIZE = 32;
+
     public static final Map<Integer, String> TILE_MAPPING_ID2STR = new HashMap<Integer, String>() {{
         put(0, "debug.air"); //should not ever be referenced when drawing
         put(1, "debug.missing");

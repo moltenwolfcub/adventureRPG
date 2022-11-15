@@ -19,7 +19,7 @@ public class LevelStorage {
 
     private void newLevel() {
         GRID.clear();
-        GMAX = 32;
+        GMAX = 64;
         
         addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));
         for (int i = 0; i < GMAX-2; i++) {

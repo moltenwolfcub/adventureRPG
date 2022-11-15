@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.moltenwolfcub.adventurerpg.Background;
+import com.moltenwolfcub.adventurerpg.Editor;
 import com.moltenwolfcub.adventurerpg.LevelStorage;
 import com.moltenwolfcub.adventurerpg.Player;
 import com.moltenwolfcub.adventurerpg.Rpg;
@@ -20,6 +21,7 @@ public class GameScreen implements Screen {
 
 	private Background background;
 	private Tiles tiles;
+	private Editor editor;
 	private LevelStorage levelStorage;
 	private Player player;
 
@@ -37,6 +39,7 @@ public class GameScreen implements Screen {
 		this.background = new Background(game);
 		this.levelStorage = new LevelStorage();
 		this.tiles = new Tiles(game, levelStorage);
+		this.editor = new Editor(game);
 
 		this.player = new Player(this.game);
 	}
@@ -52,6 +55,8 @@ public class GameScreen implements Screen {
 
 		this.background.paint(camX, camY);
 		this.tiles.paint(camX, camY);
+		this.editor.paint(view, camX, camY);
+
 		this.player.paint(camX, camY);
 		
 		game.batch.end();
@@ -64,8 +69,9 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		if (isLoopRunning) {
 			this.player.tick();
-			camX = Math.min(Math.max(player.playerX, 0), levelStorage.GMAX*32- Constants.DESKTOP_WINDOW_WIDTH);
-			camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*32- Constants.DESKTOP_WINDOW_HEIGHT);
+			this.editor.tick();
+			camX = Math.min(Math.max(player.playerX, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_WIDTH);
+			camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_HEIGHT);
 			draw();
 		}	
 	}
