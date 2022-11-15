@@ -19,7 +19,7 @@ public class LevelStorage {
 
     private void newLevel() {
         GRID.clear();
-        GMAX = 100;
+        GMAX = 32;
         
         addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));
         for (int i = 0; i < GMAX-2; i++) {
@@ -38,10 +38,9 @@ public class LevelStorage {
                     switch (random.nextInt(125)) {
                         case 0 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
                         case 1 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
-                        case 2 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
-                        case 3 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
-                        case 4 -> Constants.TILE_MAPPING_STR2ID.get("bush1");
-                        case 5 -> Constants.TILE_MAPPING_STR2ID.get("sign1");
+                        case 2 -> Constants.TILE_MAPPING_STR2ID.get("flower1");
+                        case 3 -> Constants.TILE_MAPPING_STR2ID.get("flower1");
+                        case 4 -> Constants.TILE_MAPPING_STR2ID.get("flower1");
                         default -> tile;
                     }
                 );

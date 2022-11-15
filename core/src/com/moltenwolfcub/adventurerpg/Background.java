@@ -14,7 +14,7 @@ public class Background {
     public Background(Rpg game) {
         this.game = game;
 
-		this.texture = game.spriteTextureAtlas.createSprite("tiles/grass");
+		this.texture = game.spriteTextureAtlas.createSprite("tiles/greenGrass1");
     }
 
     public void dispose() {

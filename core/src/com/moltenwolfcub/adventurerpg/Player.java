@@ -27,15 +27,15 @@ public class Player {
 	public Player(Rpg game) {
         this.game = game;
 
-		this.sprite = game.spriteTextureAtlas.createSprite("player/Idle"+playerDir.getTextureSuffix());
+		this.sprite = game.spriteTextureAtlas.createSprite("player/idle"+playerDir.getTextureSuffix());
 		this.sprite.setScale(2);
-		setTexture(game.spriteTextureAtlas.findRegion("player/Idle"+playerDir.getTextureSuffix()));
+		setTexture(game.spriteTextureAtlas.findRegion("player/idle"+playerDir.getTextureSuffix()));
 
         walkingAnimation = new QuadDirAnimation(animationSpeed,
-            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.UP.getTextureSuffix()),
-            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.DOWN.getTextureSuffix()),
-            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.LEFT.getTextureSuffix()),
-            game.spriteTextureAtlas.findRegions("player/Walk"+PlayerDir.RIGHT.getTextureSuffix())
+            game.spriteTextureAtlas.findRegions("player/walk"+PlayerDir.UP.getTextureSuffix()),
+            game.spriteTextureAtlas.findRegions("player/walk"+PlayerDir.DOWN.getTextureSuffix()),
+            game.spriteTextureAtlas.findRegions("player/walk"+PlayerDir.LEFT.getTextureSuffix()),
+            game.spriteTextureAtlas.findRegions("player/walk"+PlayerDir.RIGHT.getTextureSuffix())
         );
     }
 
@@ -49,7 +49,7 @@ public class Player {
 			movement();
 			currentTexture = walkingAnimation.getKeyFrame(animationFrame, true);
 		} else {
-			currentTexture = getRotatedTexture("player/Idle");
+			currentTexture = getRotatedTexture("player/idle");
 			animationFrame = 0;
 		}
 		
