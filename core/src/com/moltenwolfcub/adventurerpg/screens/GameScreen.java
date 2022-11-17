@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
 		this.background = new Background(game);
 		this.levelStorage = new LevelStorage();
 		this.tiles = new Tiles(game, levelStorage);
-		this.editor = new Editor(game);
+		this.editor = new Editor(game, levelStorage);
 
 		this.player = new Player(this.game);
 	}
@@ -69,7 +69,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		if (isLoopRunning) {
 			this.player.tick();
-			this.editor.tick();
+			this.editor.tick(view, camX, camY);
 			camX = Math.min(Math.max(player.playerX, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_WIDTH);
 			camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_HEIGHT);
 			draw();
