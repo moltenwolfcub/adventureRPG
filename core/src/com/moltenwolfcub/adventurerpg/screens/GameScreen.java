@@ -19,11 +19,11 @@ public class GameScreen implements Screen {
 
 	public final Rpg game;
 
-	private Background background;
-	private Tiles tiles;
-	private Editor editor;
-	private LevelStorage levelStorage;
-	private Player player;
+	private final Background background;
+	private final Tiles tiles;
+	private final Editor editor;
+	private final LevelStorage levelStorage;
+	private final Player player;
 
 	private boolean isLoopRunning = true;
 	public int camX = 0;
@@ -39,7 +39,7 @@ public class GameScreen implements Screen {
 		this.background = new Background(game);
 		this.levelStorage = new LevelStorage();
 		this.tiles = new Tiles(game, levelStorage);
-		this.editor = new Editor(game, levelStorage);
+		this.editor = new Editor(game, levelStorage, view);
 
 		this.player = new Player(this.game);
 	}
@@ -55,7 +55,7 @@ public class GameScreen implements Screen {
 
 		this.background.paint(camX, camY);
 		this.tiles.paint(camX, camY);
-		this.editor.paint(view, camX, camY);
+		this.editor.paint(camX, camY);
 
 		this.player.paint(camX, camY);
 		
@@ -69,7 +69,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		if (isLoopRunning) {
 			this.player.tick();
-			this.editor.tick(view, camX, camY);
+			this.editor.tick(camX, camY);
 			camX = Math.min(Math.max(player.playerX, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_WIDTH);
 			camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_HEIGHT);
 			draw();
@@ -87,6 +87,9 @@ public class GameScreen implements Screen {
 	public void dispose() {
 		background.dispose();
 		player.dispose();
+		tiles.dispose();
+		editor.dispose();
+		levelStorage.dispose();
 	}
 	@Override
 	public void resize(int width, int height) {

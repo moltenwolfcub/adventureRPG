@@ -11,6 +11,7 @@ import com.moltenwolfcub.adventurerpg.util.Keybinds;
 public class Editor {
 	private final Rpg game;
 	public final LevelStorage levelStorage;
+	private final Viewport viewport;
 
 	private final Sprite selectionOutline;
 	private Sprite drawingTexture;
@@ -19,16 +20,17 @@ public class Editor {
     private int drawingTile = 1;
 
 
-    public Editor(Rpg game, LevelStorage lvlStore) {
+    public Editor(Rpg game, LevelStorage lvlStore, Viewport view) {
         this.game = game;
         this.levelStorage = lvlStore;
+        this.viewport = view;
 
         this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
         this.selectionOutline.setBounds(0, 0, 36, 36);
         this.selectionOutline.setAlpha(0.7f);
     }
 
-    private int[] getGridPosFromMouse(Viewport viewport, int camX, int camY) {
+    private int getGridPosFromMouse(int axis, int camX, int camY) {
         Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         int mouseX = (int) mousePos.x;
         int mouseY =  (int) mousePos.y;
@@ -36,18 +38,21 @@ public class Editor {
         int gx = Math.floorDiv(mouseX + camX, Constants.TILE_SIZE);
         int gy = Math.floorDiv(mouseY + camY, Constants.TILE_SIZE);
 
-        return new int[]{gx, gy};
+        switch (axis) {
+            case 0: return gx;
+            case 1: return gy;
+            default: return 0;
+        }
     }
 
 
-    public void tick(Viewport viewport, int camX, int camY) {
+    public void tick(int camX, int camY) {
         if (Gdx.input.isKeyJustPressed(Keybinds.TOGGLE_EDITOR.getKeyCode())) {
             inEditor = !inEditor;
         }
         if (inEditor) {
-            int[] mouseTile = getGridPosFromMouse(viewport, camX, camY);
-            int gx = mouseTile[0];
-            int gy = mouseTile[1];
+            int gx = getGridPosFromMouse(0, camX, camY);
+            int gy = getGridPosFromMouse(1, camX, camY);
             int gidx = gx+gy*levelStorage.GMAX;
 
             if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
@@ -59,12 +64,11 @@ public class Editor {
         }
     }
 
-    public void paint(Viewport viewport, int camX, int camY) {
+    public void paint(int camX, int camY) {
         if (inEditor) {
-            int[] mouseTile = getGridPosFromMouse(viewport, camX, camY);
-            int gx = mouseTile[0];
-            int gy = mouseTile[1];
-            
+            int gx = getGridPosFromMouse(0, camX, camY);
+            int gy = getGridPosFromMouse(1, camX, camY);
+
             drawingTexture = game.spriteTextureAtlas.createSprite(
                 "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
             );
@@ -83,6 +87,6 @@ public class Editor {
     }
 
     public void dispose() {
-
+        
     }
 }

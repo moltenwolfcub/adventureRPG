@@ -49,5 +49,9 @@ public class LevelStorage {
             }
         }
     }
+
+    public void dispose() {
+        
+    }
     
 }
