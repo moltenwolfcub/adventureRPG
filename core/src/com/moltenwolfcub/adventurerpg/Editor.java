@@ -13,6 +13,7 @@ public class Editor {
 	public final LevelStorage levelStorage;
 
 	private final Sprite selectionOutline;
+	private Sprite drawingTexture;
 
     private boolean inEditor = false;
     private int drawingTile = 1;
@@ -63,13 +64,21 @@ public class Editor {
             int[] mouseTile = getGridPosFromMouse(viewport, camX, camY);
             int gx = mouseTile[0];
             int gy = mouseTile[1];
+            
+            drawingTexture = game.spriteTextureAtlas.createSprite(
+                "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
+            );
+            drawingTexture.setBounds(0, 0, 32, 32);
+            drawingTexture.setAlpha(0.5f);
 
             selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
+            drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
 
             draw();
         }
     }
     private void draw() {
+        drawingTexture.draw(game.batch);
         selectionOutline.draw(game.batch);
     }
 
