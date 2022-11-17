@@ -12,7 +12,7 @@ public abstract class Keybinds {
     public static final Keybind LEFT = new Keybind("Left", MOVEMENT, Keys.A);
     public static final Keybind RIGHT = new Keybind("Right", MOVEMENT, Keys.D);
 
-    public static final Keybind TOGGLE_EDITOR = new Keybind("Toggle Editor", EDITOR, Keys.NUM_0);
+    public static final Keybind TOGGLE_EDITOR = new Keybind("Toggle Editor", EDITOR, Keys.E);
 
     public static class Keybind {
         public final KeybindCategory keybindCategory;
