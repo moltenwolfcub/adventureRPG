@@ -17,7 +17,7 @@ public class Editor {
 	private Sprite drawingTexture;
 
     private boolean inEditor = false;
-    private int drawingTile = 1;
+    private int drawingTile = 0;
 
 
     public Editor(Rpg game, LevelStorage lvlStore, Viewport view) {
@@ -61,6 +61,9 @@ public class Editor {
             if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
                 levelStorage.GRID.set(gidx, 0);
             }
+            if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
+                drawingTile = levelStorage.GRID.get(gidx);
+            }
         }
     }
 
@@ -69,20 +72,23 @@ public class Editor {
             int gx = getGridPosFromMouse(0, camX, camY);
             int gy = getGridPosFromMouse(1, camX, camY);
 
-            drawingTexture = game.spriteTextureAtlas.createSprite(
-                "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
-            );
-            drawingTexture.setBounds(0, 0, 32, 32);
-            drawingTexture.setAlpha(0.5f);
-
             selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
-            drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
 
+            if (drawingTile != 0) {
+                drawingTexture = game.spriteTextureAtlas.createSprite(
+                    "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
+                );
+                drawingTexture.setBounds(0, 0, 32, 32);
+                drawingTexture.setAlpha(0.5f);
+                drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
+            }
             draw();
         }
     }
     private void draw() {
-        drawingTexture.draw(game.batch);
+        if(drawingTile != 0) {
+            drawingTexture.draw(game.batch);
+        }
         selectionOutline.draw(game.batch);
     }
 
