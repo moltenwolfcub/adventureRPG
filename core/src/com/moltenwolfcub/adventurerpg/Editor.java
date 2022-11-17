@@ -15,6 +15,7 @@ public class Editor {
 	private final Sprite selectionOutline;
 
     private boolean inEditor = false;
+    private int drawingTile = 1;
 
 
     public Editor(Rpg game, LevelStorage lvlStore) {
@@ -46,10 +47,13 @@ public class Editor {
             int[] mouseTile = getGridPosFromMouse(viewport, camX, camY);
             int gx = mouseTile[0];
             int gy = mouseTile[1];
+            int gidx = gx+gy*levelStorage.GMAX;
 
             if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
-                int gidx = gx+gy*levelStorage.GMAX;
-                levelStorage.GRID.set(gidx, Constants.TILE_MAPPING_STR2ID.get("chest1"));
+                levelStorage.GRID.set(gidx, drawingTile);
+            }
+            if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+                levelStorage.GRID.set(gidx, 0);
             }
         }
     }
