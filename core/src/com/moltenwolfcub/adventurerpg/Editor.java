@@ -14,10 +14,12 @@ public class Editor {
 	private final Viewport viewport;
 
 	private final Sprite selectionOutline;
+	private final Sprite palleteBackground;
 	private Sprite drawingTexture;
 
     private boolean inEditor = false;
     private int drawingTile = 0;
+    private int paletteWidth = 0;
 
 
     public Editor(Rpg game, LevelStorage lvlStore, Viewport view) {
@@ -28,7 +30,14 @@ public class Editor {
         this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
         this.selectionOutline.setBounds(0, 0, 36, 36);
         this.selectionOutline.setAlpha(0.7f);
+
+        this.palleteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
     }
+
+    public void dispose() {
+        
+    }
+
 
     private int getGridPosFromMouse(int axis, int camX, int camY) {
         Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
@@ -44,7 +53,6 @@ public class Editor {
             default: return 0;
         }
     }
-
 
     public void tick(int camX, int camY) {
         if (Gdx.input.isKeyJustPressed(Keybinds.TOGGLE_EDITOR.getKeyCode())) {
@@ -82,6 +90,10 @@ public class Editor {
                 drawingTexture.setAlpha(0.5f);
                 drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
             }
+
+            paintTilePalette();
+
+
             draw();
         }
     }
@@ -90,9 +102,25 @@ public class Editor {
             drawingTexture.draw(game.batch);
         }
         selectionOutline.draw(game.batch);
+
+        drawTilePalette();
     }
 
-    public void dispose() {
+    private void paintTilePalette() {
+        paletteWidth = 5*Constants.TILE_SIZE+8;
         
+        palleteBackground.setBounds(
+            Constants.DESKTOP_WINDOW_WIDTH-paletteWidth, 
+            0, 
+            paletteWidth,
+            Constants.DESKTOP_WINDOW_HEIGHT
+        );
+    }
+    private void drawTilePalette() {
+        palleteBackground.draw(game.batch);
+    }
+
+    public int getPalletteOffset() {
+		return inEditor ? paletteWidth : 0;
     }
 }

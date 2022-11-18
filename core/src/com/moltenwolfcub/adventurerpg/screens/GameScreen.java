@@ -70,8 +70,7 @@ public class GameScreen implements Screen {
 		if (isLoopRunning) {
 			this.player.tick();
 			this.editor.tick(camX, camY);
-			camX = Math.min(Math.max(player.playerX, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_WIDTH);
-			camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_HEIGHT);
+			updateCameraPos();
 			draw();
 		}	
 	}
@@ -80,6 +79,14 @@ public class GameScreen implements Screen {
 	}
 	public void stopGameLoop() {
 		isLoopRunning = true;
+	}
+
+	public void updateCameraPos() {
+		int offsetWidth = editor.getPalletteOffset();
+
+		camX = Math.min(Math.max(player.playerX+offsetWidth/2, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_WIDTH+offsetWidth);
+		camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_HEIGHT);
+
 	}
 
 
