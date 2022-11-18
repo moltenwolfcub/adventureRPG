@@ -1,0 +1,119 @@
+spriteTextureMap.png
+	size: 32, 32
+editor/paletteBase
+	bounds: 0, 16, 16, 16
+editor/selectionOutline
+	bounds: 0, 0, 16, 16
+
+spriteTextureMap2.png
+	size: 64, 64
+tiles/blueGrass1
+	bounds: 0, 48, 16, 16
+tiles/bush1
+	bounds: 0, 32, 16, 16
+tiles/chest1
+	bounds: 16, 48, 16, 16
+tiles/crackedStone1
+	bounds: 0, 16, 16, 16
+tiles/debug.missing
+	bounds: 0, 0, 16, 16
+tiles/flower1
+	bounds: 16, 32, 16, 16
+tiles/greenGrass1
+	bounds: 32, 48, 16, 16
+tiles/orangeGoop1
+	bounds: 48, 48, 16, 16
+tiles/sign1
+	bounds: 16, 16, 16, 16
+tiles/stone1
+	bounds: 16, 0, 16, 16
+tiles/stones1
+	bounds: 32, 32, 16, 16
+
+spriteTextureMap3.png
+	size: 16, 16
+entities/whiteBird1
+	bounds: 0, 0, 16, 16
+
+spriteTextureMap4.png
+	size: 128, 128
+player/idleBackward
+	bounds: 0, 96, 16, 32
+player/idleForward
+	bounds: 0, 64, 16, 32
+player/idleLeft
+	bounds: 16, 96, 16, 32
+player/idleRight
+	bounds: 0, 32, 16, 32
+player/walkBackward
+	index: 0
+	bounds: 0, 0, 16, 32
+player/walkBackward
+	index: 1
+	bounds: 16, 64, 16, 32
+player/walkBackward
+	index: 2
+	bounds: 32, 96, 16, 32
+player/walkBackward
+	index: 3
+	bounds: 16, 32, 16, 32
+player/walkBackward
+	index: 4
+	bounds: 16, 0, 16, 32
+player/walkBackward
+	index: 5
+	bounds: 32, 64, 16, 32
+player/walkForward
+	index: 0
+	bounds: 48, 96, 16, 32
+player/walkForward
+	index: 1
+	bounds: 32, 32, 16, 32
+player/walkForward
+	index: 2
+	bounds: 32, 0, 16, 32
+player/walkForward
+	index: 3
+	bounds: 48, 64, 16, 32
+player/walkForward
+	index: 4
+	bounds: 64, 96, 16, 32
+player/walkForward
+	index: 5
+	bounds: 48, 32, 16, 32
+player/walkLeft
+	index: 0
+	bounds: 48, 0, 16, 32
+player/walkLeft
+	index: 1
+	bounds: 64, 64, 16, 32
+player/walkLeft
+	index: 2
+	bounds: 80, 96, 16, 32
+player/walkLeft
+	index: 3
+	bounds: 64, 32, 16, 32
+player/walkLeft
+	index: 4
+	bounds: 64, 0, 16, 32
+player/walkLeft
+	index: 5
+	bounds: 80, 64, 16, 32
+player/walkRight
+	index: 0
+	bounds: 96, 96, 16, 32
+player/walkRight
+	index: 1
+	bounds: 112, 96, 16, 32
+player/walkRight
+	index: 2
+	bounds: 80, 32, 16, 32
+player/walkRight
+	index: 3
+	bounds: 80, 0, 16, 32
+player/walkRight
+	index: 4
+	bounds: 96, 64, 16, 32
+player/walkRight
+	index: 5
+	bounds: 112, 64, 16, 32

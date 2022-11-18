@@ -12,7 +12,7 @@ public class Rpg extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-        spriteTextureAtlas = new TextureAtlas("main/textures/spriteTextureMap.txt");
+        spriteTextureAtlas = new TextureAtlas("main/atlases/spriteTextureMap.atlas");
 		
 		this.setScreen(new GameScreen(this));
 	}
