@@ -3,6 +3,7 @@ package com.moltenwolfcub.adventurerpg;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.moltenwolfcub.adventurerpg.util.Constants;
@@ -20,6 +21,7 @@ public class Editor {
     private boolean inEditor = false;
     private int drawingTile = 0;
     private int paletteWidth = 0;
+	private TextureRegion currentPaletteTile;
 
 
     public Editor(Rpg game, LevelStorage lvlStore, Viewport view) {
@@ -107,7 +109,7 @@ public class Editor {
     }
 
     private void paintTilePalette() {
-        paletteWidth = Constants.TILE_PALETTE_TILE_COUNT_X*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_WIDTH;
+        paletteWidth = Constants.TILE_PALETTE_TILE_COUNT_X*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_SIZE;
         
         palleteBackground.setBounds(
             Constants.DESKTOP_WINDOW_WIDTH-paletteWidth, 
@@ -118,6 +120,20 @@ public class Editor {
     }
     private void drawTilePalette() {
         palleteBackground.draw(game.batch);
+
+        for (int j = 0; j < Constants.TILE_PALETTE_TILE_COUNT_X; j++) {
+            int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE/2+j*Constants.TILE_SIZE;
+            int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE/2;
+            int gidx = 20 + j;
+    
+            if (gidx != 0) {
+                String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(gidx);
+                this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
+    
+                game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+            }
+            
+        }
     }
 
     public int getPalletteOffset() {
