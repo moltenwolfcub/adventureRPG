@@ -28,7 +28,7 @@ public class Editor {
         this.viewport = view;
 
         this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
-        this.selectionOutline.setBounds(0, 0, 36, 36);
+        this.selectionOutline.setBounds(0, 0, Constants.TILE_SIZE+4, Constants.TILE_SIZE+4);
         this.selectionOutline.setAlpha(0.7f);
 
         this.palleteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
@@ -86,7 +86,7 @@ public class Editor {
                 drawingTexture = game.spriteTextureAtlas.createSprite(
                     "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
                 );
-                drawingTexture.setBounds(0, 0, 32, 32);
+                drawingTexture.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
                 drawingTexture.setAlpha(0.5f);
                 drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
             }
@@ -107,7 +107,7 @@ public class Editor {
     }
 
     private void paintTilePalette() {
-        paletteWidth = 5*Constants.TILE_SIZE+8;
+        paletteWidth = Constants.TILE_PALETTE_TILE_COUNT_X*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_WIDTH;
         
         palleteBackground.setBounds(
             Constants.DESKTOP_WINDOW_WIDTH-paletteWidth, 
