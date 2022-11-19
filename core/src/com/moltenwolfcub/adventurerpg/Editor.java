@@ -122,8 +122,8 @@ public class Editor {
         palleteBackground.draw(game.batch);
 
         for (int j = 0; j < Constants.TILE_PALETTE_TILE_COUNT_X; j++) {
-            int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE/2+j*Constants.TILE_SIZE;
-            int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE/2;
+            int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
+            int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE;
             int gidx = 20 + j;
     
             if (gidx != 0) {
