@@ -2,33 +2,47 @@ spriteTextureMap.png
 	size: 32, 32
 editor/paletteBase
 	bounds: 0, 16, 16, 16
-editor/selectionOutline
+editor/paletteCheckeredBg
 	bounds: 0, 0, 16, 16
+editor/selectionOutline
+	bounds: 16, 16, 16, 16
 
 spriteTextureMap2.png
-	size: 64, 64
-tiles/blueGrass1
+	size: 128, 128
+tiles/bigTestBL
+	bounds: 0, 80, 16, 16
+tiles/bigTestBM
+	bounds: 0, 64, 16, 16
+tiles/bigTestBR
+	bounds: 16, 80, 16, 16
+tiles/bigTestTL
 	bounds: 0, 48, 16, 16
-tiles/bush1
+tiles/bigTestTM
+	bounds: 16, 64, 16, 16
+tiles/bigTestTR
+	bounds: 32, 80, 16, 16
+tiles/blueGrass1
 	bounds: 0, 32, 16, 16
-tiles/chest1
+tiles/bush1
 	bounds: 16, 48, 16, 16
+tiles/chest1
+	bounds: 32, 64, 16, 16
 tiles/crackedStone1
-	bounds: 0, 16, 16, 16
+	bounds: 48, 80, 16, 16
 tiles/debug.missing
-	bounds: 0, 0, 16, 16
+	bounds: 0, 16, 16, 16
 tiles/flower1
 	bounds: 16, 32, 16, 16
 tiles/greenGrass1
 	bounds: 32, 48, 16, 16
 tiles/orangeGoop1
-	bounds: 48, 48, 16, 16
+	bounds: 48, 64, 16, 16
 tiles/sign1
-	bounds: 16, 16, 16, 16
+	bounds: 64, 80, 16, 16
 tiles/stone1
-	bounds: 16, 0, 16, 16
+	bounds: 0, 0, 16, 16
 tiles/stones1
-	bounds: 32, 32, 16, 16
+	bounds: 16, 16, 16, 16
 
 spriteTextureMap3.png
 	size: 16, 16

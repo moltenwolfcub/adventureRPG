@@ -15,7 +15,8 @@ public class Editor {
 	private final Viewport viewport;
 
 	private final Sprite selectionOutline;
-	private final Sprite palleteBackground;
+	private final Sprite paletteBackground;
+	private final Sprite paletteChecker;
 	private Sprite drawingTexture;
 
     private boolean inEditor = false;
@@ -33,7 +34,9 @@ public class Editor {
         this.selectionOutline.setBounds(0, 0, Constants.TILE_SIZE+4, Constants.TILE_SIZE+4);
         this.selectionOutline.setAlpha(0.7f);
 
-        this.palleteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
+        this.paletteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
+        this.paletteChecker = game.spriteTextureAtlas.createSprite("editor/paletteCheckeredBg");
+        this.paletteChecker.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
     }
 
     public void dispose() {
@@ -111,7 +114,7 @@ public class Editor {
     private void paintTilePalette() {
         paletteWidth = Constants.TILE_PALETTE_VIEWPORT_WIDTH*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_SIZE;
         
-        palleteBackground.setBounds(
+        paletteBackground.setBounds(
             Constants.DESKTOP_WINDOW_WIDTH-paletteWidth, 
             0, 
             paletteWidth,
@@ -119,15 +122,18 @@ public class Editor {
         );
     }
     private void drawTilePalette() {
-        palleteBackground.draw(game.batch);
+        paletteBackground.draw(game.batch);
 
         for (int i = 0; i < Constants.TILE_PALETTE_VIEWPORT_HEIGHT; i++) {
             for (int j = 0; j < Constants.TILE_PALETTE_VIEWPORT_WIDTH; j++) {
 
                 int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
                 int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
-                int gidx = j + i*Constants.TILE_PALETTE_VIEWPORT_WIDTH;
-                
+                int gidx = j + i*(Constants.TILE_PALETTE_PER_ROW);
+
+                paletteChecker.setPosition(x, y);
+                paletteChecker.draw(game.batch);
+
                 if (gidx < Constants.TILE_IDS.size()) {
                     String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(Constants.TILE_IDS.get(gidx));
                     this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);

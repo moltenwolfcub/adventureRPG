@@ -20,6 +20,7 @@ public abstract class Constants {
     public static final int TILE_PALETTE_BORDER_SIZE = 4;
     public static final int TILE_PALETTE_VIEWPORT_WIDTH = 5;
     public static final int TILE_PALETTE_VIEWPORT_HEIGHT = 11;
+    public static final int TILE_PALETTE_PER_ROW = 20;
 
     public static final int TILE_SIZE = 32;
     public static final Map<Integer, String> TILE_MAPPING_ID2STR = new HashMap<Integer, String>() {{
@@ -34,6 +35,12 @@ public abstract class Constants {
         put(23, "stones1");
         put(24, "crackedStone1");
         put(25, "orangeGoop1");
+        put(40, "bigTestTL");
+        put(41, "bigTestTM");
+        put(42, "bigTestTR");
+        put(60, "bigTestBL");
+        put(61, "bigTestBM");
+        put(62, "bigTestBR");
 
         //next 100 for plant-like objects
         put(100, "flower1");
@@ -52,6 +59,9 @@ public abstract class Constants {
         TILE_MAPPING_ID2STR.keySet().forEach(
             (i) -> { if (i >= 20) {add(i);}}
         );
+        // for(int i = 0; i< 201; i++) {
+        //     add(i);
+        // }TODO big multi-tile context support
     }};
     static {
         Collections.sort(TILE_IDS);
