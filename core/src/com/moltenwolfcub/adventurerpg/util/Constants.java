@@ -1,6 +1,9 @@
 package com.moltenwolfcub.adventurerpg.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class Constants {
@@ -15,7 +18,8 @@ public abstract class Constants {
     public static final double PLAYER_DIAGONAL_SPEED_BONUS = 0.99; //smaller the faster
 
     public static final int TILE_PALETTE_BORDER_SIZE = 4;
-    public static final int TILE_PALETTE_TILE_COUNT_X = 5;
+    public static final int TILE_PALETTE_VIEWPORT_WIDTH = 5;
+    public static final int TILE_PALETTE_VIEWPORT_HEIGHT = 11;
 
     public static final int TILE_SIZE = 32;
     public static final Map<Integer, String> TILE_MAPPING_ID2STR = new HashMap<Integer, String>() {{
@@ -44,4 +48,12 @@ public abstract class Constants {
             (k, v) -> put(v, k)
         );
     }};
+    public static final List<Integer> TILE_IDS = new ArrayList<Integer>() {{
+        TILE_MAPPING_ID2STR.keySet().forEach(
+            (i) -> { if (i >= 20) {add(i);}}
+        );
+    }};
+    static {
+        Collections.sort(TILE_IDS);
+    }
 }

@@ -109,7 +109,7 @@ public class Editor {
     }
 
     private void paintTilePalette() {
-        paletteWidth = Constants.TILE_PALETTE_TILE_COUNT_X*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_SIZE;
+        paletteWidth = Constants.TILE_PALETTE_VIEWPORT_WIDTH*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_SIZE;
         
         palleteBackground.setBounds(
             Constants.DESKTOP_WINDOW_WIDTH-paletteWidth, 
@@ -121,18 +121,23 @@ public class Editor {
     private void drawTilePalette() {
         palleteBackground.draw(game.batch);
 
-        for (int j = 0; j < Constants.TILE_PALETTE_TILE_COUNT_X; j++) {
-            int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
-            int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE;
-            int gidx = 20 + j;
+        for (int i = 0; i < Constants.TILE_PALETTE_VIEWPORT_HEIGHT; i++) {
+            for (int j = 0; j < Constants.TILE_PALETTE_VIEWPORT_WIDTH; j++) {
+
+                int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
+                int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
+                int gidx = j + i*Constants.TILE_PALETTE_VIEWPORT_WIDTH;
+                
+                if (gidx < Constants.TILE_IDS.size()) {
+                    String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(Constants.TILE_IDS.get(gidx));
+                    this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
     
-            if (gidx != 0) {
-                String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(gidx);
-                this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
-    
-                game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+                    if (this.currentPaletteTile != null) {
+                        game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+                    }
+
+                }
             }
-            
         }
     }
 
