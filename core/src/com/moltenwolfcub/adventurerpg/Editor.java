@@ -68,18 +68,21 @@ public class Editor {
             inEditor = !inEditor;
         }
         if (inEditor) {
-            int gx = getGridPosFromMouse(0, camX, camY);
-            int gy = getGridPosFromMouse(1, camX, camY);
-            int gidx = gx+gy*levelStorage.GMAX;
-
-            if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
-                levelStorage.GRID.set(gidx, drawingTile);
-            }
-            if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
-                levelStorage.GRID.set(gidx, 0);
-            }
-            if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
-                drawingTile = levelStorage.GRID.get(gidx);
+            tickTilePalette();
+            if (!paletteInFocus()) {
+                int gx = getGridPosFromMouse(0, camX, camY);
+                int gy = getGridPosFromMouse(1, camX, camY);
+                int gidx = gx+gy*levelStorage.GMAX;
+    
+                if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
+                    levelStorage.GRID.set(gidx, drawingTile);
+                }
+                if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+                    levelStorage.GRID.set(gidx, 0);
+                }
+                if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
+                    drawingTile = levelStorage.GRID.get(gidx);
+                }
             }
         }
     }
@@ -89,16 +92,18 @@ public class Editor {
             int gx = getGridPosFromMouse(0, camX, camY);
             int gy = getGridPosFromMouse(1, camX, camY);
 
-            selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
+            if (!paletteInFocus()) {
+                selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
 
-            if (drawingTile != 0) {
-                drawingTexture = game.spriteTextureAtlas.createSprite(
-                    "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
-                );
-                drawingTexture.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
-                drawingTexture.setAlpha(0.5f);
-                drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
-            }
+                if (drawingTile != 0) {
+                    drawingTexture = game.spriteTextureAtlas.createSprite(
+                        "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
+                    );
+                    drawingTexture.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+                    drawingTexture.setAlpha(0.5f);
+                    drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
+                }
+            }   
 
             paintTilePalette();
 
@@ -107,10 +112,12 @@ public class Editor {
         }
     }
     private void draw() {
-        if(drawingTile != 0) {
-            drawingTexture.draw(game.batch);
+        if (!paletteInFocus()) {
+            if(drawingTile != 0) {
+                drawingTexture.draw(game.batch);
+            }
+            selectionOutline.draw(game.batch);
         }
-        selectionOutline.draw(game.batch);
 
         drawTilePalette();
     }
@@ -158,8 +165,28 @@ public class Editor {
             paletteSelectionOutline.draw(game.batch);
         }
     }
+    private void tickTilePalette() {
+        if (Gdx.input.isButtonJustPressed(Buttons.LEFT)) {
+            Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+            int mouseX = (int) mousePos.x;
+            int mouseY =  (int) mousePos.y;
+            if (mouseX >= Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE &&//left edge
+                    mouseX < Constants.DESKTOP_WINDOW_WIDTH-Constants.TILE_PALETTE_BORDER_SIZE &&//right edge
+                    mouseY > Constants.TILE_PALETTE_BORDER_SIZE &&//bottom edge
+                    mouseY < Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_PALETTE_BORDER_SIZE) {
+                int clickedX = Math.floorDiv(mouseX -(Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE) +/*TODO will be a camX when palette scrolling*/ 0, Constants.TILE_SIZE);
+                int clickedY = Math.floorDiv(Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_PALETTE_BORDER_SIZE-mouseY + /*TODO will be a camY when palette scrolling*/0, Constants.TILE_SIZE);
+                int clickedIdx = clickedX+clickedY*Constants.TILE_PALETTE_PER_ROW;
+                Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(clickedIdx);
+                drawingTile = clickedId!=null ? clickedId : 0;
+            }
+        }
+    }
 
     public int getPalletteOffset() {
 		return inEditor ? paletteWidth : 0;
+    }
+    public boolean paletteInFocus() {
+        return viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).x >= Constants.DESKTOP_WINDOW_WIDTH-paletteWidth-Constants.TILE_PALETTE_FOCUS_ERROR;
     }
 }
