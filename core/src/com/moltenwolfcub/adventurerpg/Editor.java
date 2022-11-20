@@ -1,7 +1,10 @@
 package com.moltenwolfcub.adventurerpg;
 
+import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -24,6 +27,17 @@ public class Editor {
     private int drawingTile = 0;
     private int paletteWidth = 0;
 	private TextureRegion currentPaletteTile;
+    private Integer paletteCamY = 0;
+    private Integer paletteLoadedRows;
+
+    private Integer scroll = 0;
+    private InputAdapter input = new InputAdapter(){
+        @Override
+        public boolean scrolled(float amountX, float amountY) {
+            scroll = (int)amountY;
+            return true;
+        };
+    };
 
 
     public Editor(Rpg game, LevelStorage lvlStore, Viewport view) {
@@ -41,6 +55,15 @@ public class Editor {
         this.paletteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
         this.paletteChecker = game.spriteTextureAtlas.createSprite("editor/paletteCheckeredBg");
         this.paletteChecker.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+
+        Gdx.input.setInputProcessor(input);
+
+        int biggestIndex = 0;
+        Iterator<Integer> tileIndicies = Constants.PALETTE_MAPPING_IDX2ID.keySet().iterator();
+        while (tileIndicies.hasNext()) {
+            biggestIndex = Math.max(biggestIndex, tileIndicies.next());
+        }
+        paletteLoadedRows = Math.floorDiv(biggestIndex, Constants.PALETTE_PER_ROW);
     }
 
     public void dispose() {
@@ -141,7 +164,7 @@ public class Editor {
 
                 int x = Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
                 int y = Constants.WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
-                int gidx = j + i*(Constants.PALETTE_PER_ROW);
+                int gidx = j+(int)Math.floor(paletteCamY)*Constants.PALETTE_PER_ROW + i*(Constants.PALETTE_PER_ROW);
 
                 paletteChecker.setPosition(x, y);
                 paletteChecker.draw(game.batch);
@@ -154,7 +177,7 @@ public class Editor {
                     if (this.currentPaletteTile != null) {
                         game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
                     }
-                    if (tileId == drawingTile) {
+                    if (tileId.equals(drawingTile)) {
                         paletteSelectionOutline.setPosition(x-2, y-2);
                         hasPaletteOutline = true;
                     }
@@ -166,20 +189,26 @@ public class Editor {
         }
     }
     private void tickTilePalette() {
-        if (Gdx.input.isButtonJustPressed(Buttons.LEFT)) {
-            Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-            int mouseX = (int) mousePos.x;
-            int mouseY =  (int) mousePos.y;
-            if (mouseX >= Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE &&//left edge
-                    mouseX < Constants.WINDOW_WIDTH-Constants.PALETTE_BORDER_SIZE &&//right edge
-                    mouseY > Constants.PALETTE_BORDER_SIZE &&//bottom edge
-                    mouseY < Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE) {
-                int clickedX = Math.floorDiv(mouseX -(Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE) +/*TODO will be a camX when palette scrolling*/ 0, Constants.TILE_SIZE);
-                int clickedY = Math.floorDiv(Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE-mouseY + /*TODO will be a camY when palette scrolling*/0, Constants.TILE_SIZE);
+        Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
+        int mouseX = (int) mousePos.x;
+        int mouseY =  (int) mousePos.y;
+        if (mouseX >= Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE &&//left edge
+                mouseX < Constants.WINDOW_WIDTH-Constants.PALETTE_BORDER_SIZE &&//right edge
+                mouseY > Constants.PALETTE_BORDER_SIZE &&//bottom edge
+                mouseY < Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE) {//top edge
+
+            if (Gdx.input.isButtonJustPressed(Buttons.LEFT)) {
+
+                int clickedX = Math.floorDiv(mouseX -(Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE), Constants.TILE_SIZE);
+                int clickedY = Math.floorDiv(Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE-mouseY, Constants.TILE_SIZE) + (int)Math.floor(paletteCamY);
                 int clickedIdx = clickedX+clickedY*Constants.PALETTE_PER_ROW;
                 Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(clickedIdx);
                 drawingTile = clickedId!=null ? clickedId : 0;
             }
+
+            paletteCamY += scroll;
+            scroll = 0;
+            paletteCamY = Math.max(Math.min(paletteCamY, paletteLoadedRows), 0);
         }
     }
 

@@ -17,8 +17,10 @@ public abstract class Constants {
     public static final int PALETTE_BORDER_SIZE = 4;
     public static final int PALETTE_VIEWPORT_WIDTH = 5;
     public static final int PALETTE_VIEWPORT_HEIGHT = 11;
-    public static final int PALETTE_PER_ROW = 20;
+    public static final int PALETTE_PER_ROW = 5;
     public static final int PALETTE_FOCUS_ERROR = 5;
+    public static final int PALETTE_SCROLL_REGION_SIZE = 10;
+    public static final int PALETTE_SCROLLS_REQ = 10;
     public static final Map<Integer, Integer> PALETTE_MAPPING_IDX2ID = new HashMap<Integer, Integer>() {{
         put(0, 20);
         put(1, 21);
@@ -26,16 +28,16 @@ public abstract class Constants {
         put(3, 23);
         put(4, 24);
         put(5, 25);
-        put(23, 200);
-        put(24, 201);
+        put(6, 200);
+        put(7, 201);
         put(8, 300);
         put(9, 301);
-        put(20, 26);
-        put(21, 27);
-        put(22, 28);
-        put(40, 29);
-        put(41, 30);
-        put(42, 31);
+        put(10, 26);
+        put(11, 27);
+        put(12, 28);
+        put(15, 29);
+        put(16, 30);
+        put(17, 31);
     }};
 
     public static final int TILE_SIZE = 32;
