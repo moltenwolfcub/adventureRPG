@@ -85,7 +85,7 @@ public class Player {
 	}
 
 	public void paint(int camX, int camY) {
-		sprite.setCenter(playerX- camX + Constants.DESKTOP_WINDOW_WIDTH/2, playerY- camY + Constants.DESKTOP_WINDOW_HEIGHT/2);
+		sprite.setCenter(playerX- camX + Constants.WINDOW_WIDTH/2, playerY- camY + Constants.WINDOW_HEIGHT/2);
 
 		this.playerDir.updateQuadAnim(walkingAnimation);
 		setTexture(currentTexture);

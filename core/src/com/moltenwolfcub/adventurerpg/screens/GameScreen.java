@@ -34,7 +34,7 @@ public class GameScreen implements Screen {
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false);
-		view = new FitViewport(Constants.DESKTOP_WINDOW_WIDTH, Constants.DESKTOP_WINDOW_HEIGHT, camera);
+		view = new FitViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, camera);
 
 		this.background = new Background(game);
 		this.levelStorage = new LevelStorage();
@@ -84,8 +84,8 @@ public class GameScreen implements Screen {
 	public void updateCameraPos() {
 		int offsetWidth = editor.getPalletteOffset();
 
-		camX = Math.min(Math.max(player.playerX+offsetWidth/2, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_WIDTH+offsetWidth);
-		camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.DESKTOP_WINDOW_HEIGHT);
+		camX = Math.min(Math.max(player.playerX+offsetWidth/2, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.WINDOW_WIDTH+offsetWidth);
+		camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.WINDOW_HEIGHT);
 
 	}
 

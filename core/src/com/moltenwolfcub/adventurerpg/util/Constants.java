@@ -5,8 +5,8 @@ import java.util.Map;
 
 public abstract class Constants {
 
-    public static final int DESKTOP_WINDOW_WIDTH = 480;
-    public static final int DESKTOP_WINDOW_HEIGHT = 360;
+    public static final int WINDOW_WIDTH = 480;
+    public static final int WINDOW_HEIGHT = 360;
 
     public static final int BACKGROUND_TILES_WIDTH = 16;
     public static final int BACKGROUND_TILES_HEIGHT = 13;
@@ -14,11 +14,11 @@ public abstract class Constants {
     public static final int PLAYER_SPEED_MULTIPLIER = 3;
     public static final double PLAYER_DIAGONAL_SPEED_BONUS = 0.99; //smaller the faster
 
-    public static final int TILE_PALETTE_BORDER_SIZE = 4;
-    public static final int TILE_PALETTE_VIEWPORT_WIDTH = 5;
-    public static final int TILE_PALETTE_VIEWPORT_HEIGHT = 11;
-    public static final int TILE_PALETTE_PER_ROW = 20;
-    public static final int TILE_PALETTE_FOCUS_ERROR = 5;
+    public static final int PALETTE_BORDER_SIZE = 4;
+    public static final int PALETTE_VIEWPORT_WIDTH = 5;
+    public static final int PALETTE_VIEWPORT_HEIGHT = 11;
+    public static final int PALETTE_PER_ROW = 20;
+    public static final int PALETTE_FOCUS_ERROR = 5;
     public static final Map<Integer, Integer> PALETTE_MAPPING_IDX2ID = new HashMap<Integer, Integer>() {{
         put(0, 20);
         put(1, 21);

@@ -38,8 +38,8 @@ public class Tiles {
 		originX = 0-Math.floorMod(gx, Constants.TILE_SIZE);
         originY = 0-Math.floorMod(gy, Constants.TILE_SIZE);
 
-        for (int j = 0; j < Math.floorDiv(Constants.DESKTOP_WINDOW_HEIGHT, Constants.TILE_SIZE)+2; j++) {
-            for (int i = 0; i < Math.floorDiv(Constants.DESKTOP_WINDOW_WIDTH, Constants.TILE_SIZE)+1; i++) {
+        for (int j = 0; j < Math.floorDiv(Constants.WINDOW_HEIGHT, Constants.TILE_SIZE)+2; j++) {
+            for (int i = 0; i < Math.floorDiv(Constants.WINDOW_WIDTH, Constants.TILE_SIZE)+1; i++) {
                 
                 int gidx = Math.floorDiv(gx, Constants.TILE_SIZE);
                 gidx += levelStorage.GMAX*Math.floorDiv(gy, Constants.TILE_SIZE);

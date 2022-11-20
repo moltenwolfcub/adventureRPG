@@ -12,7 +12,7 @@ public class DesktopLauncher {
 
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setTitle("Adventure RPG");
-		config.setWindowedMode(Constants.DESKTOP_WINDOW_WIDTH, Constants.DESKTOP_WINDOW_HEIGHT);
+		config.setWindowedMode(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT);
 		config.setForegroundFPS(60);
 		new Lwjgl3Application(new Rpg(), config);
 	}

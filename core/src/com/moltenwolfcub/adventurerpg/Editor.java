@@ -123,25 +123,25 @@ public class Editor {
     }
 
     private void paintTilePalette() {
-        paletteWidth = Constants.TILE_PALETTE_VIEWPORT_WIDTH*Constants.TILE_SIZE+2*Constants.TILE_PALETTE_BORDER_SIZE;
+        paletteWidth = Constants.PALETTE_VIEWPORT_WIDTH*Constants.TILE_SIZE+2*Constants.PALETTE_BORDER_SIZE;
         
         paletteBackground.setBounds(
-            Constants.DESKTOP_WINDOW_WIDTH-paletteWidth, 
+            Constants.WINDOW_WIDTH-paletteWidth, 
             0, 
             paletteWidth,
-            Constants.DESKTOP_WINDOW_HEIGHT
+            Constants.WINDOW_HEIGHT
         );
     }
     private void drawTilePalette() {
         paletteBackground.draw(game.batch);
 
         boolean hasPaletteOutline = false;
-        for (int i = 0; i < Constants.TILE_PALETTE_VIEWPORT_HEIGHT; i++) {
-            for (int j = 0; j < Constants.TILE_PALETTE_VIEWPORT_WIDTH; j++) {
+        for (int i = 0; i < Constants.PALETTE_VIEWPORT_HEIGHT; i++) {
+            for (int j = 0; j < Constants.PALETTE_VIEWPORT_WIDTH; j++) {
 
-                int x = Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
-                int y = Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.TILE_PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
-                int gidx = j + i*(Constants.TILE_PALETTE_PER_ROW);
+                int x = Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
+                int y = Constants.WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
+                int gidx = j + i*(Constants.PALETTE_PER_ROW);
 
                 paletteChecker.setPosition(x, y);
                 paletteChecker.draw(game.batch);
@@ -170,13 +170,13 @@ public class Editor {
             Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
             int mouseX = (int) mousePos.x;
             int mouseY =  (int) mousePos.y;
-            if (mouseX >= Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE &&//left edge
-                    mouseX < Constants.DESKTOP_WINDOW_WIDTH-Constants.TILE_PALETTE_BORDER_SIZE &&//right edge
-                    mouseY > Constants.TILE_PALETTE_BORDER_SIZE &&//bottom edge
-                    mouseY < Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_PALETTE_BORDER_SIZE) {
-                int clickedX = Math.floorDiv(mouseX -(Constants.DESKTOP_WINDOW_WIDTH-paletteWidth+Constants.TILE_PALETTE_BORDER_SIZE) +/*TODO will be a camX when palette scrolling*/ 0, Constants.TILE_SIZE);
-                int clickedY = Math.floorDiv(Constants.DESKTOP_WINDOW_HEIGHT-Constants.TILE_PALETTE_BORDER_SIZE-mouseY + /*TODO will be a camY when palette scrolling*/0, Constants.TILE_SIZE);
-                int clickedIdx = clickedX+clickedY*Constants.TILE_PALETTE_PER_ROW;
+            if (mouseX >= Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE &&//left edge
+                    mouseX < Constants.WINDOW_WIDTH-Constants.PALETTE_BORDER_SIZE &&//right edge
+                    mouseY > Constants.PALETTE_BORDER_SIZE &&//bottom edge
+                    mouseY < Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE) {
+                int clickedX = Math.floorDiv(mouseX -(Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE) +/*TODO will be a camX when palette scrolling*/ 0, Constants.TILE_SIZE);
+                int clickedY = Math.floorDiv(Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE-mouseY + /*TODO will be a camY when palette scrolling*/0, Constants.TILE_SIZE);
+                int clickedIdx = clickedX+clickedY*Constants.PALETTE_PER_ROW;
                 Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(clickedIdx);
                 drawingTile = clickedId!=null ? clickedId : 0;
             }
@@ -187,6 +187,6 @@ public class Editor {
 		return inEditor ? paletteWidth : 0;
     }
     public boolean paletteInFocus() {
-        return viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).x >= Constants.DESKTOP_WINDOW_WIDTH-paletteWidth-Constants.TILE_PALETTE_FOCUS_ERROR;
+        return viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).x >= Constants.WINDOW_WIDTH-paletteWidth-Constants.PALETTE_FOCUS_ERROR;
     }
 }
