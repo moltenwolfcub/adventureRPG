@@ -22,16 +22,6 @@ public abstract class Constants {
     public static final int PALETTE_SCROLL_REGION_SIZE = 10;
     public static final int PALETTE_SCROLLS_REQ = 10;
     public static final Map<Integer, Integer> PALETTE_MAPPING_IDX2ID = new HashMap<Integer, Integer>() {{
-        put(0, 20);
-        put(1, 21);
-        put(2, 22);
-        put(3, 23);
-        put(4, 24);
-        put(5, 25);
-        put(6, 200);
-        put(7, 201);
-        put(8, 300);
-        put(9, 301);
         put(10, 26);
         put(11, 27);
         put(12, 28);
@@ -73,4 +63,17 @@ public abstract class Constants {
             (k, v) -> put(v, k)
         );
     }};
+
+    static {
+        TILE_MAPPING_ID2STR.forEach((k, v) -> {
+            if (k >= 20) {
+                Integer freeKey = 0;
+                if (!PALETTE_MAPPING_IDX2ID.containsValue(k)) {
+                    while (PALETTE_MAPPING_IDX2ID.containsKey(freeKey)) { freeKey++; }
+
+                    PALETTE_MAPPING_IDX2ID.put(freeKey, k);
+                }
+            }
+        });
+    }
 }
