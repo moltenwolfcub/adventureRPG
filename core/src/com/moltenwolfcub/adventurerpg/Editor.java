@@ -64,7 +64,7 @@ public class Editor {
     }
 
     public void tick(int camX, int camY) {
-        if (Gdx.input.isKeyJustPressed(Keybinds.TOGGLE_EDITOR.getKeyCode())) {
+        if (Keybinds.TOGGLE_EDITOR.isJustPressed()) {
             inEditor = !inEditor;
         }
         if (inEditor) {
@@ -74,13 +74,13 @@ public class Editor {
                 int gy = getGridPosFromMouse(1, camX, camY);
                 int gidx = gx+gy*levelStorage.GMAX;
     
-                if (Gdx.input.isButtonPressed(Buttons.LEFT)) {
+                if (Keybinds.PLACE_TILE.isPressed()) {
                     levelStorage.GRID.set(gidx, drawingTile);
                 }
-                if (Gdx.input.isButtonPressed(Buttons.RIGHT)) {
+                if (Keybinds.CLEAR_TILE.isPressed()) {
                     levelStorage.GRID.set(gidx, 0);
                 }
-                if (Gdx.input.isButtonPressed(Buttons.MIDDLE)) {
+                if (Keybinds.PICK_TILE.isPressed()) {
                     drawingTile = levelStorage.GRID.get(gidx);
                 }
             }

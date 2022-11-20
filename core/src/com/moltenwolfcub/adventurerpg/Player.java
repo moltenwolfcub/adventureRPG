@@ -73,10 +73,10 @@ public class Player {
 		animationFrame += 1;
 	}
 	private void controls() {
-		joyX = Gdx.input.isKeyPressed(Keybinds.RIGHT.getKeyCode()) == true ? 1 : 0;
-		joyX -= Gdx.input.isKeyPressed(Keybinds.LEFT.getKeyCode()) == true ? 1 : 0;
-		joyY = Gdx.input.isKeyPressed(Keybinds.FORWARDS.getKeyCode()) == true ? 1 : 0;
-		joyY -= Gdx.input.isKeyPressed(Keybinds.BACKWARDS.getKeyCode()) == true ? 1 : 0;
+		joyX = Keybinds.RIGHT.isPressed() == true ? 1 : 0;
+		joyX -= Keybinds.LEFT.isPressed() == true ? 1 : 0;
+		joyY = Keybinds.FORWARDS.isPressed() == true ? 1 : 0;
+		joyY -= Keybinds.BACKWARDS.isPressed() == true ? 1 : 0;
 		joyDist = Math.sqrt(joyX*joyX+joyY*joyY);
 	}
 	private void tryMove(double dx, double dy) {

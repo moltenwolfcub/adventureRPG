@@ -1,5 +1,10 @@
 package com.moltenwolfcub.adventurerpg.util;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 
 public abstract class Keybinds {
@@ -7,65 +12,118 @@ public abstract class Keybinds {
     public static final KeybindCategory MOVEMENT = new KeybindCategory("Movement");
     public static final KeybindCategory EDITOR = new KeybindCategory("Level Editor");
 
-    public static final Keybind FORWARDS = new Keybind("Forwards", MOVEMENT, Keys.W);
-    public static final Keybind BACKWARDS = new Keybind("Backwards", MOVEMENT, Keys.S);
-    public static final Keybind LEFT = new Keybind("Left", MOVEMENT, Keys.A);
-    public static final Keybind RIGHT = new Keybind("Right", MOVEMENT, Keys.D);
+    public static final Keybind FORWARDS = new Keybind("Forwards", InputType.KEY, Keys.W, MOVEMENT);
+    public static final Keybind BACKWARDS = new Keybind("Backwards", InputType.KEY, Keys.S, MOVEMENT);
+    public static final Keybind LEFT = new Keybind("Left", InputType.KEY, Keys.A, MOVEMENT);
+    public static final Keybind RIGHT = new Keybind("Right", InputType.KEY, Keys.D, MOVEMENT);
 
-    public static final Keybind TOGGLE_EDITOR = new Keybind("Toggle Editor", EDITOR, Keys.E);
+    public static final Keybind TOGGLE_EDITOR = new Keybind("Toggle Editor", InputType.KEY, Keys.E, EDITOR);
+    public static final Keybind PLACE_TILE = new Keybind("Place Tile", InputType.BUTTON, Buttons.RIGHT, EDITOR);
+    public static final Keybind CLEAR_TILE = new Keybind("Clear Tile", InputType.BUTTON, Buttons.LEFT, EDITOR);
+    public static final Keybind PICK_TILE = new Keybind("Pick Tile", InputType.BUTTON, Buttons.MIDDLE, EDITOR);
 
     public static class Keybind {
         public final KeybindCategory keybindCategory;
-        private final int defaultKeycode;
+        private final Integer defaultKeycode;
+        private final InputType defaultInputType;
 
-        private String name;
+        private final String name;
 
-        private int keybindCode;
-        private String keybindCharacter;
+        private Integer keycode;
+        private InputType inputType;
+        private String keybindCharName;
 
         public Keybind(String name) {
             this(name, MISC);
         }
-        public Keybind(String name, int defaultKeycode) {
-            this(name, MISC, defaultKeycode);
+        public Keybind(String name, InputType type, int defaultKeycode) {
+            this(name, type, defaultKeycode, MISC);
         }
         public Keybind(String name, KeybindCategory category) {
-            this(name, category, 0);
+            this(name, InputType.NONE, null, category);
         }
-        public Keybind(String name, KeybindCategory category, int defaultKeycode) {
+        public Keybind(String name, InputType defaultType, Integer defaultKey, KeybindCategory category) {
             keybindCategory = category;
-            this.defaultKeycode = defaultKeycode;
-            setChar(defaultKeycode);
+            keybindCategory.keys.add(this);
+            defaultKeycode = defaultKey;
+            defaultInputType = defaultType;
+            setBinding(defaultType, defaultKeycode);
 
             this.name = name;
         }
 
-        public void setChar(int keycode) {
-            keybindCode = keycode;
-            keybindCharacter = Keys.toString(keycode);
+        public void setBinding(InputType type, Integer key) {
+            inputType = type;
+            keycode = key;
+            if (key != null) {
+                keybindCharName = Keys.toString(key);
+            } else {
+                keybindCharName = "Unbound";
+            }
         }
-        public int getKeyCode() {
-            return keybindCode;
+        
+        public boolean isJustPressed() {
+            if (keycode == null) { return false; }
+            switch (inputType) {
+                case KEY: return Gdx.input.isKeyJustPressed(keycode);
+                case BUTTON: return Gdx.input.isButtonJustPressed(keycode);
+                case NONE: return false;
+                default: return false;
+            }
         }
-        public String getKeyCharacter() {
-            return keybindCharacter;
+        public boolean isPressed() {
+            if (keycode == null) { return false; }
+            switch (inputType) {
+                case KEY: return Gdx.input.isKeyPressed(keycode);
+                case BUTTON: return Gdx.input.isButtonPressed(keycode);
+                case NONE: return false;
+                default: return false;
+            }
+        }
+        
+        public int getKey() {
+            return keycode;
+        }
+        public String getKeyCharStr() {
+            return keybindCharName;
         }
         public String getName() {
             return name;
         }
+        public KeybindCategory getCategory() {
+            return keybindCategory;
+        }
 
         public void resetKeybind() {
-            setChar(defaultKeycode);
+            setBinding(defaultInputType, defaultKeycode);
         }
         public boolean isDefault() {
-            return keybindCode == defaultKeycode;
+            return keycode == defaultKeycode;
+        }
+
+        public boolean hasBinding() {
+            return inputType != InputType.NONE && keycode != null;
         }
     }
     public static class KeybindCategory {
         public String name;
+        private List<Keybind> keys = new ArrayList<Keybind>();
 
         public KeybindCategory(String name) {
             this.name = name;
         }
+
+        public void addKey(Keybind key) {
+            keys.add(key);
+        }
+        public List<Keybind> getKeys() {
+            return keys;
+        }
+    }
+
+    public static enum InputType {
+        KEY,
+        BUTTON,
+        NONE;
     }
 }
