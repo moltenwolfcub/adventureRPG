@@ -25,8 +25,8 @@ public abstract class Constants {
         put(3, 23);
         put(4, 24);
         put(5, 25);
-        put(6, 200);
-        put(7, 201);
+        put(23, 200);
+        put(24, 201);
         put(8, 300);
         put(9, 301);
         put(20, 26);

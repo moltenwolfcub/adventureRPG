@@ -15,6 +15,7 @@ public class Editor {
 	private final Viewport viewport;
 
 	private final Sprite selectionOutline;
+	private final Sprite paletteSelectionOutline;
 	private final Sprite paletteBackground;
 	private final Sprite paletteChecker;
 	private Sprite drawingTexture;
@@ -33,6 +34,8 @@ public class Editor {
         this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
         this.selectionOutline.setBounds(0, 0, Constants.TILE_SIZE+4, Constants.TILE_SIZE+4);
         this.selectionOutline.setAlpha(0.7f);
+        this.paletteSelectionOutline = this.selectionOutline;
+        this.paletteSelectionOutline.setAlpha(1);
 
         this.paletteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
         this.paletteChecker = game.spriteTextureAtlas.createSprite("editor/paletteCheckeredBg");
@@ -134,14 +137,21 @@ public class Editor {
                 paletteChecker.setPosition(x, y);
                 paletteChecker.draw(game.batch);
 
-                String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(Constants.PALETTE_MAPPING_IDX2ID.get(gidx));
-                this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
-
-                if (this.currentPaletteTile != null) {
-                    game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+                Integer tileId = Constants.PALETTE_MAPPING_IDX2ID.get(gidx);
+                if (tileId != null) {
+                    String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
+                    this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
+    
+                    if (this.currentPaletteTile != null) {
+                        game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+                    }
+                    if (tileId == drawingTile) {
+                        paletteSelectionOutline.setPosition(x-2, y-2);
+                    }
                 }
             }
         }
+        paletteSelectionOutline.draw(game.batch);
     }
 
     public int getPalletteOffset() {
