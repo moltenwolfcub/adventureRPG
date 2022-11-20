@@ -34,7 +34,8 @@ public class Editor {
         this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
         this.selectionOutline.setBounds(0, 0, Constants.TILE_SIZE+4, Constants.TILE_SIZE+4);
         this.selectionOutline.setAlpha(0.7f);
-        this.paletteSelectionOutline = this.selectionOutline;
+        this.paletteSelectionOutline = new Sprite();
+        this.paletteSelectionOutline.set(selectionOutline);
         this.paletteSelectionOutline.setAlpha(1);
 
         this.paletteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
@@ -127,6 +128,7 @@ public class Editor {
     private void drawTilePalette() {
         paletteBackground.draw(game.batch);
 
+        boolean hasPaletteOutline = false;
         for (int i = 0; i < Constants.TILE_PALETTE_VIEWPORT_HEIGHT; i++) {
             for (int j = 0; j < Constants.TILE_PALETTE_VIEWPORT_WIDTH; j++) {
 
@@ -147,11 +149,14 @@ public class Editor {
                     }
                     if (tileId == drawingTile) {
                         paletteSelectionOutline.setPosition(x-2, y-2);
+                        hasPaletteOutline = true;
                     }
                 }
             }
         }
-        paletteSelectionOutline.draw(game.batch);
+        if (hasPaletteOutline) {
+            paletteSelectionOutline.draw(game.batch);
+        }
     }
 
     public int getPalletteOffset() {
