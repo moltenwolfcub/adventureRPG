@@ -134,14 +134,11 @@ public class Editor {
                 paletteChecker.setPosition(x, y);
                 paletteChecker.draw(game.batch);
 
-                if (gidx < Constants.TILE_IDS.size()) {
-                    String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(Constants.TILE_IDS.get(gidx));
-                    this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
-    
-                    if (this.currentPaletteTile != null) {
-                        game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
-                    }
+                String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(Constants.PALETTE_MAPPING_IDX2ID.get(gidx));
+                this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
 
+                if (this.currentPaletteTile != null) {
+                    game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
                 }
             }
         }
