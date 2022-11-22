@@ -55,8 +55,16 @@ public abstract class Keybinds {
         public void setBinding(InputType type, Integer key) {
             inputType = type;
             keycode = key;
-            if (key != null) {
+            if (inputType == InputType.KEY && key != null) {
                 keybindCharName = Keys.toString(key);
+            } else if (inputType == InputType.BUTTON && key != null) {
+                switch (key) {
+                    case Buttons.RIGHT: keybindCharName = "Right Click"; break;
+                    case Buttons.LEFT: keybindCharName = "Left Click"; break;
+                    case Buttons.MIDDLE: keybindCharName = "Middle Click"; break;
+                    case Buttons.BACK: keybindCharName = "Back Click"; break;
+                    case Buttons.FORWARD: keybindCharName = "Forward Click"; break;
+                }
             } else {
                 keybindCharName = "Unbound";
             }
