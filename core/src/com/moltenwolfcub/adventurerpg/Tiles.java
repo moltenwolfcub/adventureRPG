@@ -1,17 +1,44 @@
 package com.moltenwolfcub.adventurerpg;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.Disposable;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
-public class Tiles {
+/**
+ * Render engine for the tile level grid.
+ * <p>
+ * Draws a grid of tiles obtained from the
+ * {@code LevelStorage} using the 
+ * {@code TextureAtlas} from {@code Rpg}.
+ * 
+ * @author 		MoltenWolfCub
+ * @version     %I%
+ * @see			LevelStorage
+ * @see			Rpg
+ * @see			com.badlogic.gdx.graphics.g2d.TextureAtlas
+ */
+public class Tiles implements Disposable {
+	/** Instance of {@code Rpg} to render and obtain Sprites.*/
 	public final Rpg game;
+	/** The Level that is being drawn.*/
 	public final LevelStorage levelStorage;
     
-    private int originX = 0;
-    private int originY = 0;
+	/** The tile position on the left of the screen within the entire map.*/
+    protected int originX = 0;
+	/** The tile position on the bottom of the screen within the entire map.*/
+    protected int originY = 0;
 
-	private TextureRegion currentTexture;
+	/** The texture used to draw all the tiles onto the screen.*/
+	protected TextureRegion currentTexture;
 
+	/**
+	 * Construtor for a tile drawing engine
+	 * 
+	 * @param game			The instance of {@code}
+	 * 						used to render and get
+	 * 						sprites.
+	 * @param lvlStore		The level to be rendered.
+	 */
     public Tiles(Rpg game, LevelStorage lvlStore) {
         this.game = game;
         this.levelStorage = lvlStore;
@@ -19,17 +46,38 @@ public class Tiles {
 		this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/bush1");
     }
 
+    @Override
     public void dispose() {
 
     }
 
+	/**
+	 * Calculates the positions of objects
+	 * before drawing to screen.
+	 * 
+	 * @param camX		The X-position of the camera
+	 * 					in the entire level
+	 * @param camY		The Y-position of the camera
+	 * 					in the entire level
+	 */
 	public void paint(int camX, int camY) {
         draw(camX, camY);
 	}
 
-    private void draw(int camX, int camY) {
-        int tileSizeW = currentTexture.getRegionWidth()*2;
-        int tileSizeH = currentTexture.getRegionHeight()*2;
+    /**
+     * Draws the game tile grid to the screen. 
+     * Get's the level from the {@code LevelStorage} GRID.
+     * 
+     * @param camX      The X-position on the entire 
+     *                  level that the camera is looking at.
+     * @param camY      The Y-position on the entire 
+     *                  level that the camera is looking at.
+     * @see 			LevelStorage
+	 * @see				LevelStorage#GRID
+     */
+    protected void draw(int camX, int camY) {
+        int tileSizeW = Constants.TILE_SIZE;
+        int tileSizeH = Constants.TILE_SIZE;
 
         int gx = camX;
         int gy = camY;

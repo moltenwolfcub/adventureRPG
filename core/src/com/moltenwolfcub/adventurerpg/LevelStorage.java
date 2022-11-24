@@ -3,21 +3,48 @@ package com.moltenwolfcub.adventurerpg;
 import java.util.Random;
 
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Disposable;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
-public class LevelStorage {
+/**
+ * The code for storing and generating a level.
+ * Stores the level in {@code GRID} and can create
+ * new empty levels.
+ * 
+ * @author 		MoltenWolfCub
+ * @version     %I%
+ * @see         #GRID
+ */
+public class LevelStorage implements Disposable {
+    /** The level stored in this instance.*/
     public Array<Integer> GRID = new Array<>();
+    /** The number of tiles along the X-axis.*/
     public int GMAX;
 
+    /**
+     * Constructor for a level map. Creates
+     * an empty map on creation.
+     */
     public LevelStorage() {
         loadLevel();
     }
 
+    /**
+     * Loads in a level to the {@code GRID}.
+     * <p>
+     * Currently creates a new level each time
+     * but will eventually load in from JSON.
+     */
     public void loadLevel() {
         newLevel();
     }
 
-    private void newLevel() {
+    /**
+     * Creates a new empty level. Makes an empty
+     * level with a border of bushes and has flowers
+     * and bushes randomly spotted throughout
+     */
+    protected void newLevel() {
         GRID.clear();
         GMAX = 64;
         
@@ -30,7 +57,21 @@ public class LevelStorage {
         addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));
     }
 
-    private void addMultipleTilesToGrid(int count, int tile) {
+    /**
+     * Adds multiple consecutive tiles to.
+     * {@code GRID}.
+     * <p>
+     * (If the tile parsed is blank(0), then
+     * it will randomly place bushes and flowers
+     * instead of a blank tile.)
+     * 
+     * @param count     The number of tiles to be
+     *                  placed together.
+     * @param tile      The ID of tile that is being
+     *                  placed.
+     * @see             #GRID
+     */
+    protected void addMultipleTilesToGrid(int count, int tile) {
         Random random = new Random();
         for (int i = 0; i < count; i++) {
             if (tile == 0) {
@@ -50,6 +91,7 @@ public class LevelStorage {
         }
     }
 
+    @Override
     public void dispose() {
         
     }

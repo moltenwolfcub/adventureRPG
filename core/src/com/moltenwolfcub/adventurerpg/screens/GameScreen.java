@@ -13,22 +13,73 @@ import com.moltenwolfcub.adventurerpg.Rpg;
 import com.moltenwolfcub.adventurerpg.Tiles;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
+/**
+ * A class implementing {@code Screen} that manages the
+ * main game loop, camera and the instances of the other
+ * game elements.
+ * <p>
+ * Contains the main tick loop which can be toggled on and off.
+ * All instances of game elements will get ticked and drawn in this loop too.
+ * <p>
+ * Also holds and manages the {@code OrthographicCamera} and {@code Viewport}.
+ * 
+ * @author 		MoltenWolfCub
+ * @version     %I%
+ * @see 		Screen
+ * @see 		OrthographicCamera
+ * @see 		Viewport
+ */
 public class GameScreen implements Screen {
-	private Viewport view;
-	private OrthographicCamera camera;
+	/** The {@code Viewport} used to render the display at different resolutions.*/
+	protected Viewport view;
+	/** The camera used to render the screen.*/
+	protected OrthographicCamera camera;
 
+	/** 
+	 * The {@code Rpg}game that is using this screen.
+	 * Used for getting {@code SpriteBatch} and {@code TextureAtlas}.
+	*/
 	public final Rpg game;
 
-	private final Background background;
-	private final Tiles tiles;
-	private final Editor editor;
-	private final LevelStorage levelStorage;
-	private final Player player;
+	/** The instance of {@code Background} that will be used for the lifetime of this screen.*/
+	protected final Background background;
+	/** The instance of {@code Tiles} that will be used for the lifetime of this screen.*/
+	protected final Tiles tiles;
+	/** The instance of {@code Editor} that will be used for the lifetime of this screen.*/
+	protected final Editor editor;
+	/** The instance of {@code LevelStorage} that will be used for the lifetime of this screen.*/
+	protected final LevelStorage levelStorage;
+	/** The instance of {@code Player} that will be used for the lifetime of this screen.*/
+	protected final Player player;
 
-	private boolean isLoopRunning = true;
+	/** Keeps track of Whether the gameLoop is currently being ran.*/
+	protected boolean isLoopRunning = true;
+	/** The camera X position within the entire level.*/
 	public int camX = 0;
+	/** The camera Y position within the entire level.*/
 	public int camY = 0;
 
+	/**
+	 * Constructor for {@code GameScreen} that initializes instances
+	 * of the following:
+	 * <ul>
+	 * <li>{@code Background}</li>
+	 * <li>{@code LevelStorage}</li>
+	 * <li>{@code Tiles}</li>
+	 * <li>{@code Editor}</li>
+	 * <li>{@code Player}</li>
+	 * </ul>
+	 * Also sets up a viewport and camera for this screen and it's instances
+	 * to draw on.
+	 * 
+	 * @param game 		The instance of {@code Rpg} that is making this screen.
+	 * @see 			Rpg
+	 * @see 			Background
+	 * @see 			LevelStorage
+	 * @see 			Tiles
+	 * @see 			Editor
+	 * @see 			Player
+	 */
 	public GameScreen(Rpg game) {
 		this.game = game;
 
@@ -44,7 +95,16 @@ public class GameScreen implements Screen {
 		this.player = new Player(this.game);
 	}
 
-	private void draw() {
+	/**
+	 * Clears the screen to White and runs the various paint scripts using a SpriteBatch.
+	 * 
+	 * @see 	com.badlogic.gdx.graphics.g2d.SpriteBatch
+	 * @see 	Background#paint
+	 * @see 	Tiles#paint
+	 * @see 	Editor#paint
+	 * @see 	Player#paint
+	 */
+	protected void draw() {
 		ScreenUtils.clear(1, 1, 1, 1);
 
 		camera.update();
@@ -74,13 +134,29 @@ public class GameScreen implements Screen {
 			draw();
 		}	
 	}
+	/**
+	 * Allows the game loop to start ticking objects and drawing everything to the screen
+	 */
 	public void startGameLoop() {
 		isLoopRunning = true;
 	}
+	/**
+	 * Stops the game loop from ticking objects and drawing everything to the screen
+	 */
 	public void stopGameLoop() {
 		isLoopRunning = true;
 	}
 
+	/**
+	 * Updates the camX and camY variables based on the player's current position.
+	 * It will also fence the camera within the level so you don't go off the level edge.
+	 * <p>
+	 * If the level editor is open it will offset the fencing by the nesessary amount to
+	 * allow give the edge of the map visiblity while the palette is open.
+	 * 
+	 * @see		#camX
+	 * @see		#camY
+	 */
 	public void updateCameraPos() {
 		int offsetWidth = editor.getPalletteOffset();
 

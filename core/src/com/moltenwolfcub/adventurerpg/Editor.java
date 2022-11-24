@@ -8,30 +8,57 @@ import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 import com.moltenwolfcub.adventurerpg.util.Keybinds;
 
-public class Editor {
-	private final Rpg game;
+/**
+ * A class to manage the game's editor.
+ * <p>
+ * Holds all the sprites for the different
+ * elements of the editor and palette.
+ * Controls and draws the tile palette.
+ * Manages tile placing, removal and picking.
+ */
+public class Editor implements Disposable {
+    /** The game instance holding the {@code SpriteBatch} and {@code TextureAtlas}.*/
+	protected final Rpg game;
+    /** The place where the level is stored and generated.*/
 	public final LevelStorage levelStorage;
-	private final Viewport viewport;
+    /** The viewport for unprojecting mouse position.*/
+	protected final Viewport viewport;
 
-	private final Sprite selectionOutline;
-	private final Sprite paletteSelectionOutline;
-	private final Sprite paletteBackground;
-	private final Sprite paletteChecker;
-	private Sprite drawingTexture;
+    /** The checkered outline showing the selected tile in the level.*/
+	protected final Sprite selectionOutline;
+    /** The checkered outline showing the tile that's selected in the palette.*/
+	protected final Sprite paletteSelectionOutline;
+    /**
+     * The black background behind all of the palette.
+     * <p>
+     * (This is used as the shapeRenderer didn't work with the spriteBatch)
+     */
+	protected final Sprite paletteBackground;
+    /** The checkered background for the tile palette.*/
+	protected final Sprite paletteChecker;
+    /** The translucent copy of the tile currently selected for drawing. This follows the mouse pointer with the outline in the level.*/
+	protected Sprite drawingTexture;
 
-    private boolean inEditor = false;
-    private int drawingTile = 0;
-    private int paletteWidth = 0;
-	private TextureRegion currentPaletteTile;
-    private Integer paletteCamY = 0;
-    private Integer paletteLoadedRows;
+    /** Boolean of whether the editor is open or not.*/
+    protected boolean inEditor = false;
+    /** The tile ID that is currently beind drawn with.*/
+    protected int drawingTile = 0;
+    /** The width of the tile palette in pixels.<p>(Without the vieport modification. Will be drawn differently.)*/
+    protected int paletteWidth = 0;
+    /** How many tiles down the palette has been scrolled.*/
+    protected Integer paletteCamY = 0;
+    /** The number of full rows in the palette.*/
+    protected Integer paletteLoadedRows;
 
-    private Integer scroll = 0;
-    private InputAdapter input = new InputAdapter(){
+    /** The direction scrolled in the last tick as a signum(-1, 0, 1)*/
+    protected Integer scroll = 0;
+    /** {@code InputAdapter} used for the palette scrolling.*/
+    protected InputAdapter input = new InputAdapter(){
         @Override
         public boolean scrolled(float amountX, float amountY) {
             scroll = (int)amountY;
@@ -40,6 +67,18 @@ public class Editor {
     };
 
 
+    /**
+     * The construtor for a level editor.
+     * 
+     * @param game          The instance of {@code Rpg}
+     *                      that holds sprite rendering
+     *                      objects
+     * @param lvlStore		The {@code LevelStorage} that
+	 * 						contains the level that should
+	 * 						be drawn
+     * @param view			vieport used for unprojecting
+	 * 						mouse pos
+     */
     public Editor(Rpg game, LevelStorage lvlStore, Viewport view) {
         this.game = game;
         this.levelStorage = lvlStore;
@@ -66,12 +105,25 @@ public class Editor {
         paletteLoadedRows = Math.floorDiv(biggestIndex, Constants.PALETTE_PER_ROW);
     }
 
+    @Override
     public void dispose() {
         
     }
 
 
-    private int getGridPosFromMouse(int axis, int camX, int camY) {
+	/**
+	 * Used for obtaining the tilepos that is currently being 
+	 * hovered over by the mouse.
+	 * 
+	 * @param axis		0-> x coordinate 
+	 * 					1-> y coordinate
+	 * @param camX		the camera offset along the x axis
+	 * @param camY		the camera offset along the y axis
+	 * @return			the current tile being hovered on
+	 * 					by the mouse point. (will only return
+	 * 					one axis based on the axis parameter.)
+	 */
+    public int getGridPosFromMouse(int axis, int camX, int camY) {
         Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         int mouseX = (int) mousePos.x;
         int mouseY =  (int) mousePos.y;
@@ -86,6 +138,16 @@ public class Editor {
         }
     }
 
+	/**
+	 * Ticking method for the editor.
+	 * Should be ran once per tick.
+	 * Controls tile placing, removal and
+	 * picking. Also controls toggling
+	 * between editor.
+	 * 
+	 * @param camX
+	 * @param camY
+	 */
     public void tick(int camX, int camY) {
         if (Keybinds.TOGGLE_EDITOR.isJustPressed()) {
             inEditor = !inEditor;
@@ -110,6 +172,13 @@ public class Editor {
         }
     }
 
+	/**
+	 * Used for calculating and setting positions
+	 * of elements in the editor.
+	 * 
+	 * @param camX		camera offset in the X axis
+	 * @param camY		camera offset in the Y axis
+	 */
     public void paint(int camX, int camY) {
         if (inEditor) {
             int gx = getGridPosFromMouse(0, camX, camY);
@@ -134,7 +203,11 @@ public class Editor {
             draw();
         }
     }
-    private void draw() {
+	/**
+	 * Actually draws the elements onto the screen
+	 * after the paint has calculated their positions.
+	 */
+    protected void draw() {
         if (!paletteInFocus()) {
             if(drawingTile != 0) {
                 drawingTexture.draw(game.batch);
@@ -145,7 +218,11 @@ public class Editor {
         drawTilePalette();
     }
 
-    private void paintTilePalette() {
+    /**
+     * Calculates positions and textures for
+     * static elements in the tile palette.
+     */
+    protected void paintTilePalette() {
         paletteWidth = Constants.PALETTE_VIEWPORT_WIDTH*Constants.TILE_SIZE+2*Constants.PALETTE_BORDER_SIZE;
         
         paletteBackground.setBounds(
@@ -155,7 +232,15 @@ public class Editor {
             Constants.WINDOW_HEIGHT
         );
     }
-    private void drawTilePalette() {
+    /**
+     * Draws the elements of the tile
+     * palette using the {@code SpriteBatch}.
+     * <p>
+     * Also calculates the positions of the
+     * non-static elements like the individual
+     * tiles in the palette.
+     */
+    protected void drawTilePalette() {
         paletteBackground.draw(game.batch);
 
         boolean hasPaletteOutline = false;
@@ -172,9 +257,9 @@ public class Editor {
                 Integer tileId = Constants.PALETTE_MAPPING_IDX2ID.get(gidx);
                 if (tileId != null) {
                     String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
-                    this.currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
+                    TextureRegion currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
     
-                    if (this.currentPaletteTile != null) {
+                    if (currentPaletteTile != null) {
                         game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
                     }
                     if (tileId.equals(drawingTile)) {
@@ -188,7 +273,14 @@ public class Editor {
             paletteSelectionOutline.draw(game.batch);
         }
     }
-    private void tickTilePalette() {
+    /**
+     * Calculates and interprets mouse
+     * input on the palette.
+     * Checks for selecting a tile and
+     * scrolling with the mouse to see
+     * more of the palette.
+     */
+    protected void tickTilePalette() {
         Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
         int mouseX = (int) mousePos.x;
         int mouseY =  (int) mousePos.y;
@@ -212,9 +304,23 @@ public class Editor {
         }
     }
 
+	/**
+	 * Gets the offset nessessary if the
+	 * palette is open.
+	 * @return		palette offset if the
+	 * 				in the editor.
+	 * @see			#paletteWidth
+	 */
     public int getPalletteOffset() {
 		return inEditor ? paletteWidth : 0;
     }
+	/**
+	 * Used for checking whether the palette is
+	 * being hovered over
+	 * 
+	 * @return		if the palette is currently
+	 * 				being hovered.
+	 */
     public boolean paletteInFocus() {
         return viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).x >= Constants.WINDOW_WIDTH-paletteWidth-Constants.PALETTE_FOCUS_ERROR;
     }
