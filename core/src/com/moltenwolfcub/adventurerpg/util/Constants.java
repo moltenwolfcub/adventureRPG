@@ -67,6 +67,15 @@ public abstract class Constants {
         put(15, 29);
         put(16, 30);
         put(17, 31);
+
+        put(0, 304);
+        put(5, 303);
+        put(6, 302);
+
+        put(2, 305);
+        put(3, 306);
+        put(7, 307);
+        put(8, 308);
     }};
 
     /** The width of a single tile in pixels. */
@@ -88,20 +97,33 @@ public abstract class Constants {
         put(23, "stones1");
         put(24, "crackedStone1");
         put(25, "orangeGoop1");
-        put(26, "bigTestTL");
-        put(27, "bigTestTM");
-        put(28, "bigTestTR");
-        put(29, "bigTestBL");
-        put(30, "bigTestBM");
-        put(31, "bigTestBR");
+        put(26, "bricksBlue1");
+        put(27, "bricksRed1");
+        put(28, "crackedLavaStone1");
+        put(29, "portal1");
+        put(30, "purpleStars1");
+        put(31, "sciFiFloor1");
+        put(32, "stoneFloor1");
+        put(33, "woodPlanks1");
+        put(34, "woodStripped1");
 
-        //next 100 for plant-like objects
+        //next 100 for natural-like objects
         put(200, "flower1");
         put(201, "bush1");
+        put(202, "rock1");
+        put(203, "smallTree1");
         
         //next 100 for other objects
         put(300, "sign1");
         put(301, "chest1");
+        put(302, "bookshelf1");
+        put(303, "bookshelf2B");
+        put(304, "bookshelf2T");
+        put(305, "gigaComputer1TL");
+        put(306, "gigaComputer1TR");
+        put(307, "gigaComputer1BL");
+        put(308, "gigaComputer1BR");
+        put(309, "blueCrystal1");
     }};
     /**
      * Reverse mapping of {@code TILE_MAPPING_ID2STR}<p> Name in the {@code TextureAtlas}: ID
