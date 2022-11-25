@@ -24,9 +24,9 @@ public class Tiles implements Disposable {
 	public final LevelStorage levelStorage;
     
 	/** The tile position on the left of the screen within the entire map.*/
-    protected int originX = 0;
+    protected Integer originX = 0;
 	/** The tile position on the bottom of the screen within the entire map.*/
-    protected int originY = 0;
+    protected Integer originY = 0;
 
 	/** The texture used to draw all the tiles onto the screen.*/
 	protected TextureRegion currentTexture;
@@ -60,7 +60,7 @@ public class Tiles implements Disposable {
 	 * @param camY		The Y-position of the camera
 	 * 					in the entire level
 	 */
-	public void paint(int camX, int camY) {
+	public void paint(Integer camX, Integer camY) {
         draw(camX, camY);
 	}
 
@@ -75,25 +75,25 @@ public class Tiles implements Disposable {
      * @see 			LevelStorage
 	 * @see				LevelStorage#GRID
      */
-    protected void draw(int camX, int camY) {
-        int tileSizeW = Constants.TILE_SIZE;
-        int tileSizeH = Constants.TILE_SIZE;
+    protected void draw(Integer camX, Integer camY) {
+        Integer tileSizeW = Constants.TILE_SIZE;
+        Integer tileSizeH = Constants.TILE_SIZE;
 
-        int gx = camX;
-        int gy = camY;
+        Integer gx = camX;
+        Integer gy = camY;
 
 
 		originX = 0-Math.floorMod(gx, Constants.TILE_SIZE);
         originY = 0-Math.floorMod(gy, Constants.TILE_SIZE);
 
-        for (int j = 0; j < Math.floorDiv(Constants.WINDOW_HEIGHT, Constants.TILE_SIZE)+2; j++) {
-            for (int i = 0; i < Math.floorDiv(Constants.WINDOW_WIDTH, Constants.TILE_SIZE)+1; i++) {
+        for (Integer j = 0; j < Math.floorDiv(Constants.WINDOW_HEIGHT, Constants.TILE_SIZE)+2; j++) {
+            for (Integer i = 0; i < Math.floorDiv(Constants.WINDOW_WIDTH, Constants.TILE_SIZE)+1; i++) {
                 
-                int gidx = Math.floorDiv(gx, Constants.TILE_SIZE);
+                Integer gidx = Math.floorDiv(gx, Constants.TILE_SIZE);
                 gidx += levelStorage.GMAX*Math.floorDiv(gy, Constants.TILE_SIZE);
                 gidx += j*levelStorage.GMAX+i;
 
-                int tileId;
+                Integer tileId;
                 try {
                     tileId = levelStorage.GRID.get(gidx);
                 } catch (IndexOutOfBoundsException exception) {

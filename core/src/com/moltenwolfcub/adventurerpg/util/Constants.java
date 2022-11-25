@@ -13,26 +13,26 @@ import java.util.Map;
 public abstract class Constants {
 
     /** The width of the desktop window in pixels.<p>(Will be rendered differently by {@code Viewport}). */
-    public static final int WINDOW_WIDTH = 480;
+    public static final Integer WINDOW_WIDTH = 480;
     /** The height of the desktop window in pixels.<p>(Will be rendered differently by {@code Viewport}). */
-    public static final int WINDOW_HEIGHT = 360;
+    public static final Integer WINDOW_HEIGHT = 360;
 
     /** The number of times that the background tile is repeated along the X-axis.*/
-    public static final int BACKGROUND_TILES_WIDTH = 16;
+    public static final Integer BACKGROUND_TILES_WIDTH = 16;
     /** The number of times that the background tile is repeated along the Y-axis.*/
-    public static final int BACKGROUND_TILES_HEIGHT = 13;
+    public static final Integer BACKGROUND_TILES_HEIGHT = 13;
 
     /** The speed multiplier applied to the player's movement.*/
-    public static final int PLAYER_SPEED_MULTIPLIER = 3;
+    public static final Integer PLAYER_SPEED_MULTIPLIER = 3;
     /** The divider on the player's speed when moving at a diagonal. <p>So the smaller the value the faster the movement. E.G. 1/0.8(This value) = 1.25 total speed.*/
-    public static final double PLAYER_DIAGONAL_SPEED_BONUS = 0.99;
+    public static final Double PLAYER_DIAGONAL_SPEED_BONUS = 0.99;
 
     /** The width of the Black border around the tile palette in the editor in pixels.<p>(Will be rendered differently by {@code Viewport}).*/
-    public static final int PALETTE_BORDER_SIZE = 4;
+    public static final Integer PALETTE_BORDER_SIZE = 4;
     /** Number of Tiles visible on the palette along the X-axis.*/
-    public static final int PALETTE_VIEWPORT_WIDTH = 5;
+    public static final Integer PALETTE_VIEWPORT_WIDTH = 5;
     /** Number of Tiles visible on the palette along the Y-axis.*/
-    public static final int PALETTE_VIEWPORT_HEIGHT = 11;
+    public static final Integer PALETTE_VIEWPORT_HEIGHT = 11;
     /**
      * The number of tiles in a row in the palette. Currently no support for sideways 
      * scolling so if it's bigger than {@code PALETTE_VIEWPORT_WIDTH} then some tiles
@@ -40,14 +40,14 @@ public abstract class Constants {
      * 
      * @see #PALETTE_VIEWPORT_WIDTH
      */ 
-    public static final int PALETTE_PER_ROW = 5;
+    public static final Integer PALETTE_PER_ROW = 5;
     /** 
      * The number of pixels to the side of the tile palette that don't effect the level.
      * <p>
      * A little room for error so if you misclick close to the palette you don't change
      * the level.
      */
-    public static final int PALETTE_FOCUS_ERROR = 5;
+    public static final Integer PALETTE_FOCUS_ERROR = 5;
     /**
      * A mapping of the index in the palette to a tile ID.
      * <p>
@@ -79,7 +79,7 @@ public abstract class Constants {
     }};
 
     /** The width of a single tile in pixels. */
-    public static final int TILE_SIZE = 32;
+    public static final Integer TILE_SIZE = 32;
     /**
      * ID mapping for each tile to it's name in the {@code TextureAtlas}.
      * 

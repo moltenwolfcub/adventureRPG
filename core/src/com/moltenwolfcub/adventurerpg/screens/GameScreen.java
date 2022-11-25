@@ -53,11 +53,11 @@ public class GameScreen implements Screen {
 	protected final Player player;
 
 	/** Keeps track of Whether the gameLoop is currently being ran.*/
-	protected boolean isLoopRunning = true;
+	protected Boolean isLoopRunning = true;
 	/** The camera X position within the entire level.*/
-	public int camX = 0;
+	public Integer camX = 0;
 	/** The camera Y position within the entire level.*/
-	public int camY = 0;
+	public Integer camY = 0;
 
 	/**
 	 * Constructor for {@code GameScreen} that initializes instances
@@ -158,7 +158,7 @@ public class GameScreen implements Screen {
 	 * @see		#camY
 	 */
 	public void updateCameraPos() {
-		int offsetWidth = editor.getPalletteOffset();
+		Integer offsetWidth = editor.getPalletteOffset();
 
 		camX = Math.min(Math.max(player.playerX+offsetWidth/2, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.WINDOW_WIDTH+offsetWidth);
 		camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.WINDOW_HEIGHT);

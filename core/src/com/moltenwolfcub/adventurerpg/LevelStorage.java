@@ -19,7 +19,7 @@ public class LevelStorage implements Disposable {
     /** The level stored in this instance.*/
     public Array<Integer> GRID = new Array<>();
     /** The number of tiles along the X-axis.*/
-    public int GMAX;
+    public Integer GMAX;
 
     /**
      * Constructor for a level map. Creates
@@ -49,7 +49,7 @@ public class LevelStorage implements Disposable {
         GMAX = 64;
         
         addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));
-        for (int i = 0; i < GMAX-2; i++) {
+        for (Integer i = 0; i < GMAX-2; i++) {
             GRID.add(Constants.TILE_MAPPING_STR2ID.get("bush1"));
             addMultipleTilesToGrid(GMAX-2, Constants.TILE_MAPPING_STR2ID.get("debug.air"));
             GRID.add(Constants.TILE_MAPPING_STR2ID.get("bush1"));
@@ -71,9 +71,9 @@ public class LevelStorage implements Disposable {
      *                  placed.
      * @see             #GRID
      */
-    protected void addMultipleTilesToGrid(int count, int tile) {
+    protected void addMultipleTilesToGrid(Integer count, Integer tile) {
         Random random = new Random();
-        for (int i = 0; i < count; i++) {
+        for (Integer i = 0; i < count; i++) {
             if (tile == 0) {
                 GRID.add(
                     switch (random.nextInt(125)) {

@@ -91,7 +91,7 @@ public abstract class Keybinds {
          * @see                     Keys
 		 * @see						Keybinds#MISC
          */
-        public Keybind(String name, InputType type, int defaultKeycode) {
+        public Keybind(String name, InputType type, Integer defaultKeycode) {
             this(name, type, defaultKeycode, MISC);
         }
         /**
@@ -178,7 +178,7 @@ public abstract class Keybinds {
          * @see         com.badlogic.gdx.Input#isKeyJustPressed
          * @see         com.badlogic.gdx.Input#isButtonJustPressed
          */
-        public boolean isJustPressed() {
+        public Boolean isJustPressed() {
             if (keycode == null) { return false; }
             switch (inputType) {
                 case KEY: return Gdx.input.isKeyJustPressed(keycode);
@@ -193,7 +193,7 @@ public abstract class Keybinds {
          * @see         com.badlogic.gdx.Input#isKeyPressed
          * @see         com.badlogic.gdx.Input#isButtonPressed
          */
-        public boolean isPressed() {
+        public Boolean isPressed() {
             if (keycode == null) { return false; }
             switch (inputType) {
                 case KEY: return Gdx.input.isKeyPressed(keycode);
@@ -210,7 +210,7 @@ public abstract class Keybinds {
          * @see         Keys
          * @see         Buttons
          */
-        public int getKey() {
+        public Integer getKey() {
             return keycode;
         }
         /**
@@ -259,7 +259,7 @@ public abstract class Keybinds {
          * @return      Whether the keybind is set
          *              to it's default binding.
          */
-        public boolean isDefault() {
+        public Boolean isDefault() {
             return keycode == defaultKeycode;
         }
 
@@ -270,7 +270,7 @@ public abstract class Keybinds {
          *              currently null and is actually
          *              set to something.
          */
-        public boolean hasBinding() {
+        public Boolean hasBinding() {
             return inputType != InputType.NONE && keycode != null;
         }
     }

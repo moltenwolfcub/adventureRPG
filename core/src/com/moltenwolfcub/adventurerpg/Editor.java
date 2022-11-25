@@ -45,11 +45,11 @@ public class Editor implements Disposable {
 	protected Sprite drawingTexture;
 
     /** Boolean of whether the editor is open or not.*/
-    protected boolean inEditor = false;
+    protected Boolean inEditor = false;
     /** The tile ID that is currently beind drawn with.*/
-    protected int drawingTile = 0;
+    protected Integer drawingTile = 0;
     /** The width of the tile palette in pixels.<p>(Without the vieport modification. Will be drawn differently.)*/
-    protected int paletteWidth = 0;
+    protected Integer paletteWidth = 0;
     /** How many tiles down the palette has been scrolled.*/
     protected Integer paletteCamY = 0;
     /** The number of full rows in the palette.*/
@@ -97,7 +97,7 @@ public class Editor implements Disposable {
 
         Gdx.input.setInputProcessor(input);
 
-        int biggestIndex = 0;
+        Integer biggestIndex = 0;
         Iterator<Integer> tileIndicies = Constants.PALETTE_MAPPING_IDX2ID.keySet().iterator();
         while (tileIndicies.hasNext()) {
             biggestIndex = Math.max(biggestIndex, tileIndicies.next());
@@ -123,13 +123,13 @@ public class Editor implements Disposable {
 	 * 					by the mouse point. (will only return
 	 * 					one axis based on the axis parameter.)
 	 */
-    public int getGridPosFromMouse(int axis, int camX, int camY) {
+    public Integer getGridPosFromMouse(Integer axis, Integer camX, Integer camY) {
         Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        int mouseX = (int) mousePos.x;
-        int mouseY =  (int) mousePos.y;
+        Integer mouseX = (int) mousePos.x;
+        Integer mouseY =  (int) mousePos.y;
 
-        int gx = Math.floorDiv(mouseX + camX, Constants.TILE_SIZE);
-        int gy = Math.floorDiv(mouseY + camY, Constants.TILE_SIZE);
+        Integer gx = Math.floorDiv(mouseX + camX, Constants.TILE_SIZE);
+        Integer gy = Math.floorDiv(mouseY + camY, Constants.TILE_SIZE);
 
         switch (axis) {
             case 0: return gx;
@@ -145,19 +145,21 @@ public class Editor implements Disposable {
 	 * picking. Also controls toggling
 	 * between editor.
 	 * 
-	 * @param camX
-	 * @param camY
+	 * @param camX      the X-offset of the
+     *                  camera in the entire level
+	 * @param camY      the Y-offset of the
+     *                  camera in the entire level
 	 */
-    public void tick(int camX, int camY) {
+    public void tick(Integer camX, Integer camY) {
         if (Keybinds.TOGGLE_EDITOR.isJustPressed()) {
             inEditor = !inEditor;
         }
         if (inEditor) {
             tickTilePalette();
             if (!paletteInFocus()) {
-                int gx = getGridPosFromMouse(0, camX, camY);
-                int gy = getGridPosFromMouse(1, camX, camY);
-                int gidx = gx+gy*levelStorage.GMAX;
+                Integer gx = getGridPosFromMouse(0, camX, camY);
+                Integer gy = getGridPosFromMouse(1, camX, camY);
+                Integer gidx = gx+gy*levelStorage.GMAX;
     
                 if (Keybinds.PLACE_TILE.isPressed()) {
                     levelStorage.GRID.set(gidx, drawingTile);
@@ -179,10 +181,10 @@ public class Editor implements Disposable {
 	 * @param camX		camera offset in the X axis
 	 * @param camY		camera offset in the Y axis
 	 */
-    public void paint(int camX, int camY) {
+    public void paint(Integer camX, Integer camY) {
         if (inEditor) {
-            int gx = getGridPosFromMouse(0, camX, camY);
-            int gy = getGridPosFromMouse(1, camX, camY);
+            Integer gx = getGridPosFromMouse(0, camX, camY);
+            Integer gy = getGridPosFromMouse(1, camX, camY);
 
             if (!paletteInFocus()) {
                 selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
@@ -243,13 +245,13 @@ public class Editor implements Disposable {
     protected void drawTilePalette() {
         paletteBackground.draw(game.batch);
 
-        boolean hasPaletteOutline = false;
-        for (int i = 0; i < Constants.PALETTE_VIEWPORT_HEIGHT; i++) {
-            for (int j = 0; j < Constants.PALETTE_VIEWPORT_WIDTH; j++) {
+        Boolean hasPaletteOutline = false;
+        for (Integer i = 0; i < Constants.PALETTE_VIEWPORT_HEIGHT; i++) {
+            for (Integer j = 0; j < Constants.PALETTE_VIEWPORT_WIDTH; j++) {
 
-                int x = Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
-                int y = Constants.WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
-                int gidx = j+(int)Math.floor(paletteCamY)*Constants.PALETTE_PER_ROW + i*(Constants.PALETTE_PER_ROW);
+                Integer x = Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE+j*Constants.TILE_SIZE;
+                Integer y = Constants.WINDOW_HEIGHT-Constants.TILE_SIZE-Constants.PALETTE_BORDER_SIZE-i*Constants.TILE_SIZE;
+                Integer gidx = j+(int)Math.floor(paletteCamY)*Constants.PALETTE_PER_ROW + i*(Constants.PALETTE_PER_ROW);
 
                 paletteChecker.setPosition(x, y);
                 paletteChecker.draw(game.batch);
@@ -282,8 +284,8 @@ public class Editor implements Disposable {
      */
     protected void tickTilePalette() {
         Vector3 mousePos = viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0));
-        int mouseX = (int) mousePos.x;
-        int mouseY =  (int) mousePos.y;
+        Integer mouseX = (int)mousePos.x;
+        Integer mouseY =  (int)mousePos.y;
         if (mouseX >= Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE &&//left edge
                 mouseX < Constants.WINDOW_WIDTH-Constants.PALETTE_BORDER_SIZE &&//right edge
                 mouseY > Constants.PALETTE_BORDER_SIZE &&//bottom edge
@@ -291,9 +293,9 @@ public class Editor implements Disposable {
 
             if (Gdx.input.isButtonJustPressed(Buttons.LEFT)) {
 
-                int clickedX = Math.floorDiv(mouseX -(Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE), Constants.TILE_SIZE);
-                int clickedY = Math.floorDiv(Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE-mouseY, Constants.TILE_SIZE) + (int)Math.floor(paletteCamY);
-                int clickedIdx = clickedX+clickedY*Constants.PALETTE_PER_ROW;
+                Integer clickedX = Math.floorDiv(mouseX -(Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE), Constants.TILE_SIZE);
+                Integer clickedY = Math.floorDiv(Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE-mouseY, Constants.TILE_SIZE) + (int)Math.floor(paletteCamY);
+                Integer clickedIdx = clickedX+clickedY*Constants.PALETTE_PER_ROW;
                 Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(clickedIdx);
                 drawingTile = clickedId!=null ? clickedId : 0;
             }
@@ -311,7 +313,7 @@ public class Editor implements Disposable {
 	 * 				in the editor.
 	 * @see			#paletteWidth
 	 */
-    public int getPalletteOffset() {
+    public Integer getPalletteOffset() {
 		return inEditor ? paletteWidth : 0;
     }
 	/**
@@ -321,7 +323,7 @@ public class Editor implements Disposable {
 	 * @return		if the palette is currently
 	 * 				being hovered.
 	 */
-    public boolean paletteInFocus() {
+    public Boolean paletteInFocus() {
         return viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).x >= Constants.WINDOW_WIDTH-paletteWidth-Constants.PALETTE_FOCUS_ERROR;
     }
 }

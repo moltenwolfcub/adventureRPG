@@ -25,27 +25,27 @@ public class Player implements Disposable {
 	/** The Sprite used to draw the player.*/
 	public final Sprite sprite;
 	/** The X position of the player in the entire map.*/
-	public int playerX = 0;
+	public Integer playerX = 0;
 	/** The Y position of the player in the entire map.*/
-	public int playerY = 0;
+	public Integer playerY = 0;
 	/** The player's current direction.*/
 	protected PlayerDir playerDir = PlayerDir.DOWN;
 
 	/** The player's 4-directional walking animation.*/
     protected QuadDirAnimation walkingAnimation;
 	/** The current frame of animation the player is on.*/
-	protected int animationFrame = 1;
+	protected Integer animationFrame = 1;
 	/** The number of ticks between frame changes.*/
-	protected float animationSpeed = 3f;
+	protected Float animationSpeed = 3f;
 	/** The player's currently being drawn texture.*/
 	protected TextureRegion currentTexture;
 
 	/** Represents the player's delta along the X-axis as a signum(1, 0, -1)*/
-	protected double joyX = 0;
+	protected Double joyX = 0.0;
 	/** Represents the player's delta along the Y-axis as a signum(1, 0, -1)*/
-	protected double joyY = 0;
+	protected Double joyY = 0.0;
 	/** Represents the player's total delta in 2d space.*/
-	protected double joyDist = 0;
+	protected Double joyDist = 0.0;
     
 	/**
 	 * Constructor for {@code Player} that sets up the textures, 
@@ -141,9 +141,9 @@ public class Player implements Disposable {
 	 * @see 	Keybinds
 	 */
 	protected void controls() {
-		joyX = Keybinds.RIGHT.isPressed() == true ? 1 : 0;
+		joyX = Keybinds.RIGHT.isPressed() == true ? 1.0 : 0;
 		joyX -= Keybinds.LEFT.isPressed() == true ? 1 : 0;
-		joyY = Keybinds.FORWARDS.isPressed() == true ? 1 : 0;
+		joyY = Keybinds.FORWARDS.isPressed() == true ? 1.0 : 0;
 		joyY -= Keybinds.BACKWARDS.isPressed() == true ? 1 : 0;
 		joyDist = Math.sqrt(joyX*joyX+joyY*joyY);
 	}
@@ -156,9 +156,9 @@ public class Player implements Disposable {
 	 * @see 		#playerX
 	 * @see 		#playerY
 	 */
-	protected void tryMove(double dx, double dy) {
-		playerX += dx;
-		playerY += dy;
+	protected void tryMove(Double dx, Double dy) {
+		playerX += (int)Math.floor(dx);
+		playerY += (int)Math.floor(dy);
 	}
 	/**
 	 * Updates the {@code sprite} position from
@@ -173,7 +173,7 @@ public class Player implements Disposable {
 	 * @see				#sprite
 	 * @see				com.badlogic.gdx.graphics.g2d.SpriteBatch
 	 */
-	public void paint(int camX, int camY) {
+	public void paint(Integer camX, Integer camY) {
 		sprite.setCenter(playerX- camX + Constants.WINDOW_WIDTH/2, playerY- camY + Constants.WINDOW_HEIGHT/2);
 
 		this.playerDir.updateQuadAnim(walkingAnimation);

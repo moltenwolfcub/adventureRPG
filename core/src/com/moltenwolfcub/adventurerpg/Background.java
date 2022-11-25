@@ -16,9 +16,9 @@ public class Background implements Disposable {
 	public final Rpg game;
     
     /** Left edge where the background tiles should start being drawn from.*/
-    protected int originX = 0;
+    protected Integer originX = 0;
     /** Left edge where the background tiles should start being drawn from.*/
-    protected int originY = 0;
+    protected Integer originY = 0;
 
     /** The tile texture that should be repeated.*/
 	protected TextureRegion texture;
@@ -48,15 +48,15 @@ public class Background implements Disposable {
      * @param camX      Camera offset along the X-axis
      * @param camY      Camera offset along the Y-axis
      */
-	public void paint(int camX, int camY) {
-        int tileSizeW = texture.getRegionWidth()*2;
-        int tileSizeH = texture.getRegionHeight()*2;
+	public void paint(Integer camX, Integer camY) {
+        Integer tileSizeW = texture.getRegionWidth()*2;
+        Integer tileSizeH = texture.getRegionHeight()*2;
 
 		originX = 0- Math.floorMod(camX, tileSizeW);
         originY = 0- Math.floorMod(camY, tileSizeH);
 
-        for (int j = 0; j < Constants.BACKGROUND_TILES_HEIGHT; j++) {
-            for (int i = 0; i < Constants.BACKGROUND_TILES_WIDTH; i++) {
+        for (Integer j = 0; j < Constants.BACKGROUND_TILES_HEIGHT; j++) {
+            for (Integer i = 0; i < Constants.BACKGROUND_TILES_WIDTH; i++) {
                 game.batch.draw(texture, originX+tileSizeW*i, originY+tileSizeH*j, tileSizeW, tileSizeH);
             }  
         }
