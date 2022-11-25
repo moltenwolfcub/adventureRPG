@@ -29,6 +29,7 @@ public abstract class Keybinds {
     public static final Keybind PLACE_TILE = new Keybind("Place Tile", InputType.BUTTON, Buttons.RIGHT, EDITOR);
     public static final Keybind CLEAR_TILE = new Keybind("Clear Tile", InputType.BUTTON, Buttons.LEFT, EDITOR);
     public static final Keybind PICK_TILE = new Keybind("Pick Tile", InputType.BUTTON, Buttons.MIDDLE, EDITOR);
+    public static final Keybind TILE_TRACING = new Keybind("Trace Tiles", InputType.KEY, Keys.SPACE, EDITOR);
 
 	/**
 	 * A class for a keybind.

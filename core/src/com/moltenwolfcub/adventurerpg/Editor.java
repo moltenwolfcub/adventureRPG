@@ -54,6 +54,12 @@ public class Editor implements Disposable {
     protected Integer paletteCamY = 0;
     /** The number of full rows in the palette.*/
     protected Integer paletteLoadedRows;
+	/** The idx in the palette of the currently selected tile.*/
+	protected Integer currentTileIdx = 0;
+	/** The distance the mouse has moved along the X with tracing.*/
+	protected Integer dragX = null;
+	/** The distance the mouse has moved along the Y with tracing.*/
+	protected Integer dragY = null;
 
     /** The direction scrolled in the last tick as a signum(-1, 0, 1)*/
     protected Integer scroll = 0;
@@ -186,6 +192,19 @@ public class Editor implements Disposable {
             Integer gx = getGridPosFromMouse(0, camX, camY);
             Integer gy = getGridPosFromMouse(1, camX, camY);
 
+            if (Keybinds.TILE_TRACING.isPressed()) {
+				if (dragX != null) {
+					currentTileIdx += gx-dragX+(-Constants.PALETTE_PER_ROW*(gy-dragY));
+					Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(currentTileIdx);
+					drawingTile = clickedId!=null ? clickedId : 0;
+				}
+                dragX = gx;
+                dragY = gy;
+            } else {
+				dragX = null;
+				dragY = null;
+			}
+
             if (!paletteInFocus()) {
                 selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
 
@@ -295,8 +314,8 @@ public class Editor implements Disposable {
 
                 Integer clickedX = Math.floorDiv(mouseX -(Constants.WINDOW_WIDTH-paletteWidth+Constants.PALETTE_BORDER_SIZE), Constants.TILE_SIZE);
                 Integer clickedY = Math.floorDiv(Constants.WINDOW_HEIGHT-Constants.PALETTE_BORDER_SIZE-mouseY, Constants.TILE_SIZE) + (int)Math.floor(paletteCamY);
-                Integer clickedIdx = clickedX+clickedY*Constants.PALETTE_PER_ROW;
-                Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(clickedIdx);
+                currentTileIdx = clickedX+clickedY*Constants.PALETTE_PER_ROW;
+                Integer clickedId = Constants.PALETTE_MAPPING_IDX2ID.get(currentTileIdx);
                 drawingTile = clickedId!=null ? clickedId : 0;
             }
 
