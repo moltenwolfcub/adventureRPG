@@ -87,10 +87,10 @@ public class GameScreen implements Screen {
 		camera.setToOrtho(false);
 		view = new FitViewport(Constants.WINDOW_WIDTH, Constants.WINDOW_HEIGHT, camera);
 
-		this.background = new Background(game);
 		this.levelStorage = new LevelStorage();
-		this.tiles = new Tiles(game, levelStorage);
 		this.editor = new Editor(game, levelStorage, view);
+		this.background = new Background(game, editor);
+		this.tiles = new Tiles(game, levelStorage, editor);
 
 		this.player = new Player(this.game);
 	}

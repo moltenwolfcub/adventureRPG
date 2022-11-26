@@ -25,7 +25,7 @@ public class Editor implements Disposable {
     /** The game instance holding the {@code SpriteBatch} and {@code TextureAtlas}.*/
 	protected final Rpg game;
     /** The place where the level is stored and generated.*/
-	public final LevelStorage levelStorage;
+	protected final LevelStorage levelStorage;
     /** The viewport for unprojecting mouse position.*/
 	protected final Viewport viewport;
 
@@ -61,7 +61,9 @@ public class Editor implements Disposable {
 	/** The distance the mouse has moved along the Y with tracing.*/
 	protected Integer dragY = null;
 	/** The layer that is being edited.*/
-	protected Integer currentLayer = 1;
+	public Integer currentLayer = 1;
+	/** The layer that is being edited.*/
+	public Boolean focusLayer = false;
 
     /** The direction scrolled in the last tick as a signum(-1, 0, 1)*/
     protected Integer scroll = 0;
@@ -161,6 +163,7 @@ public class Editor implements Disposable {
     public void tick(Integer camX, Integer camY) {
         if (Keybinds.TOGGLE_EDITOR.isJustPressed()) {
             inEditor = !inEditor;
+            focusLayer = false;
         }
         if (inEditor) {
             tickTilePalette();
@@ -224,7 +227,7 @@ public class Editor implements Disposable {
                         "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
                     );
                     drawingTexture.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
-                    drawingTexture.setAlpha(0.5f);
+                    drawingTexture.setAlpha(Constants.EDITOR_DEFOCUSED_ALPHA);
                     drawingTexture.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
                 }
             }   
@@ -365,6 +368,10 @@ public class Editor implements Disposable {
 	 * @param layer			the desired layer.
 	 */
 	public void setLayer(Integer layer) {
-		currentLayer = layer;
+        if (currentLayer.equals(layer)) {
+            focusLayer = !focusLayer;
+        } else {
+            currentLayer = layer;
+        }
 	}
 }

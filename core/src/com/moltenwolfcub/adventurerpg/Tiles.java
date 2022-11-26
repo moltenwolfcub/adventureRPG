@@ -1,6 +1,6 @@
 package com.moltenwolfcub.adventurerpg;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Disposable;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
@@ -22,14 +22,16 @@ public class Tiles implements Disposable {
 	public final Rpg game;
 	/** The Level that is being drawn.*/
 	public final LevelStorage levelStorage;
+	/** The editor that is editing this tilemap.*/
+	public final Editor editor;
     
 	/** The tile position on the left of the screen within the entire map.*/
     protected Integer originX = 0;
 	/** The tile position on the bottom of the screen within the entire map.*/
     protected Integer originY = 0;
 
-	/** The texture used to draw all the tiles onto the screen.*/
-	protected TextureRegion currentTexture;
+	/** The sprite used to draw all the tiles onto the screen.*/
+	protected Sprite currentTexture;
 
 	/**
 	 * Construtor for a tile drawing engine
@@ -38,10 +40,13 @@ public class Tiles implements Disposable {
 	 * 						used to render and get
 	 * 						sprites.
 	 * @param lvlStore		The level to be rendered.
+     * @param editor        The editor that controls the
+     *                      focus of tiles being drawn.
 	 */
-    public Tiles(Rpg game, LevelStorage lvlStore) {
+    public Tiles(Rpg game, LevelStorage lvlStore, Editor editor) {
         this.game = game;
         this.levelStorage = lvlStore;
+        this.editor = editor;
 
 		this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/bush1");
     }
@@ -52,8 +57,8 @@ public class Tiles implements Disposable {
     }
 
 	/**
-	 * Calculates the positions of objects
-	 * before drawing to screen.
+	 * Calculates the positions of objects behind
+     * the player before drawing to screen.
 	 * 
 	 * @param camX		The X-position of the camera
 	 * 					in the entire level
@@ -65,6 +70,15 @@ public class Tiles implements Disposable {
             drawLayer(i, camX, camY);
         }
 	}
+	/**
+	 * Calculates the positions of objects infront
+     * of the player before drawing to screen.
+	 * 
+	 * @param camX		The X-position of the camera
+	 * 					in the entire level
+	 * @param camY		The Y-position of the camera
+	 * 					in the entire level
+	 */
     public void paintFg(Integer camX, Integer camY) {
         Integer fgLayerCount = Constants.GRID_LAYERS-Constants.GRID_LAYERS_BG;
         for (Integer i = 1; i <= fgLayerCount; ++i) {
@@ -85,6 +99,8 @@ public class Tiles implements Disposable {
 	 * @see				LevelStorage#GRID
      */
     protected void drawLayer(Integer layer, Integer camX, Integer camY) {
+        Boolean shouldFade = editor.focusLayer & editor.currentLayer!=layer;
+
         Integer tileSizeW = Constants.TILE_SIZE;
         Integer tileSizeH = Constants.TILE_SIZE;
 
@@ -111,9 +127,12 @@ public class Tiles implements Disposable {
                 }
                 if (tileId != 0) {
                     String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
+
                     this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
-    
-                    game.batch.draw(currentTexture, originX+tileSizeW*i, originY+tileSizeH*j, tileSizeW, tileSizeH);
+                    this.currentTexture.setAlpha(shouldFade?0.5f:1);
+                    this.currentTexture.setBounds(originX+tileSizeW*i, originY+tileSizeH*j, tileSizeW, tileSizeH);
+
+                    this.currentTexture.draw(game.batch);
                 }
             }  
         }

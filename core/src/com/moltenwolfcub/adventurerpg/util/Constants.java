@@ -24,6 +24,7 @@ public abstract class Constants {
 
     /** The number of 3d layers in the grid.*/
     public static final Integer GRID_LAYERS = 3;
+    /** The number of the 3d layers that should be drawn behind the player*/
     public static final Integer GRID_LAYERS_BG = 2;
 
     /** The speed multiplier applied to the player's movement.*/
@@ -31,6 +32,8 @@ public abstract class Constants {
     /** The divider on the player's speed when moving at a diagonal. <p>So the smaller the value the faster the movement. E.G. 1/0.8(This value) = 1.25 total speed.*/
     public static final Double PLAYER_DIAGONAL_SPEED_BONUS = 0.99;
 
+    /** The alpha value of tiles that aren't on the focused layer when a layer is focused*/
+    public static final Float EDITOR_DEFOCUSED_ALPHA = 0.25f;
     /** The width of the Black border around the tile palette in the editor in pixels.<p>(Will be rendered differently by {@code Viewport}).*/
     public static final Integer PALETTE_BORDER_SIZE = 4;
     /** Number of Tiles visible on the palette along the X-axis.*/
