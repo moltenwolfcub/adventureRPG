@@ -48,7 +48,7 @@ public class LevelStorage implements Disposable {
      */
     protected void newLevel() {
         GRID.clear();
-        GMAX = 64;
+        GMAX = 16;
         GMUL = GMAX*GMAX;
         
         addMultipleTilesToGrid(GMAX, Constants.TILE_MAPPING_STR2ID.get("bush1"));

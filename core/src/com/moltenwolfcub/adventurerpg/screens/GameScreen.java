@@ -100,7 +100,7 @@ public class GameScreen implements Screen {
 	 * 
 	 * @see 	com.badlogic.gdx.graphics.g2d.SpriteBatch
 	 * @see 	Background#paint
-	 * @see 	Tiles#paint
+	 * @see 	Tiles#paintBg
 	 * @see 	Editor#paint
 	 * @see 	Player#paint
 	 */

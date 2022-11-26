@@ -246,6 +246,7 @@ public class Editor implements Disposable {
             }
             selectionOutline.draw(game.batch);
         }
+        game.font.draw(game.batch, "Layer: "+currentLayer, 5, Constants.WINDOW_HEIGHT-5);
 
         drawTilePalette();
     }
