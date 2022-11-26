@@ -60,6 +60,8 @@ public class Editor implements Disposable {
 	protected Integer dragX = null;
 	/** The distance the mouse has moved along the Y with tracing.*/
 	protected Integer dragY = null;
+	/** The layer that is being edited.*/
+	protected Integer currentLayer = 1;
 
     /** The direction scrolled in the last tick as a signum(-1, 0, 1)*/
     protected Integer scroll = 0;
@@ -165,7 +167,7 @@ public class Editor implements Disposable {
             if (!paletteInFocus()) {
                 Integer gx = getGridPosFromMouse(0, camX, camY);
                 Integer gy = getGridPosFromMouse(1, camX, camY);
-                Integer gidx = gx+gy*levelStorage.GMAX;
+                Integer gidx = gx+gy*levelStorage.GMAX+(currentLayer-1)*levelStorage.GMUL;
     
                 if (Keybinds.PLACE_TILE.isPressed()) {
                     levelStorage.GRID.set(gidx, drawingTile);
@@ -177,6 +179,15 @@ public class Editor implements Disposable {
                     drawingTile = levelStorage.GRID.get(gidx);
                 }
             }
+			if (Keybinds.SET_LAYER_1.isJustPressed()) {
+				setLayer(1);
+			}
+			if (Keybinds.SET_LAYER_2.isJustPressed()) {
+				setLayer(2);
+			}
+			if (Keybinds.SET_LAYER_3.isJustPressed()) {
+				setLayer(3);
+			}
         }
     }
 
@@ -345,4 +356,14 @@ public class Editor implements Disposable {
     public Boolean paletteInFocus() {
         return viewport.unproject(new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0)).x >= Constants.WINDOW_WIDTH-paletteWidth-Constants.PALETTE_FOCUS_ERROR;
     }
+
+	/**
+	 * Used to change the layer that is
+	 * currently being edited on.
+	 * 
+	 * @param layer			the desired layer.
+	 */
+	public void setLayer(Integer layer) {
+		currentLayer = layer;
+	}
 }

@@ -114,10 +114,10 @@ public class GameScreen implements Screen {
 		game.batch.begin();
 
 		this.background.paint(camX, camY);
-		this.tiles.paint(camX, camY);
-		this.editor.paint(camX, camY);
-
+		this.tiles.paintBg(camX, camY);
 		this.player.paint(camX, camY);
+		this.tiles.paintFg(camX, camY);
+		this.editor.paint(camX, camY);
 		
 		game.batch.end();
 

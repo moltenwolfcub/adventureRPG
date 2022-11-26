@@ -22,6 +22,10 @@ public abstract class Constants {
     /** The number of times that the background tile is repeated along the Y-axis.*/
     public static final Integer BACKGROUND_TILES_HEIGHT = 13;
 
+    /** The number of 3d layers in the grid.*/
+    public static final Integer GRID_LAYERS = 3;
+    public static final Integer GRID_LAYERS_BG = 2;
+
     /** The speed multiplier applied to the player's movement.*/
     public static final Integer PLAYER_SPEED_MULTIPLIER = 3;
     /** The divider on the player's speed when moving at a diagonal. <p>So the smaller the value the faster the movement. E.G. 1/0.8(This value) = 1.25 total speed.*/

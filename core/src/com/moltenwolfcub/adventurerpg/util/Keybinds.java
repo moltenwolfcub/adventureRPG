@@ -30,6 +30,9 @@ public abstract class Keybinds {
     public static final Keybind CLEAR_TILE = new Keybind("Clear Tile", InputType.BUTTON, Buttons.LEFT, EDITOR);
     public static final Keybind PICK_TILE = new Keybind("Pick Tile", InputType.BUTTON, Buttons.MIDDLE, EDITOR);
     public static final Keybind TILE_TRACING = new Keybind("Trace Tiles", InputType.KEY, Keys.SPACE, EDITOR);
+    public static final Keybind SET_LAYER_1 = new Keybind("Set Layer 1", InputType.KEY, Keys.NUM_1, EDITOR);
+    public static final Keybind SET_LAYER_2 = new Keybind("Set Layer 2", InputType.KEY, Keys.NUM_2, EDITOR);
+    public static final Keybind SET_LAYER_3 = new Keybind("Set Layer 3", InputType.KEY, Keys.NUM_3, EDITOR);
 
 	/**
 	 * A class for a keybind.

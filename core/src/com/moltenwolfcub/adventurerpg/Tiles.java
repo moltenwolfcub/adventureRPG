@@ -60,22 +60,31 @@ public class Tiles implements Disposable {
 	 * @param camY		The Y-position of the camera
 	 * 					in the entire level
 	 */
-	public void paint(Integer camX, Integer camY) {
-        draw(camX, camY);
+	public void paintBg(Integer camX, Integer camY) {
+        for (Integer i = 1; i <= Constants.GRID_LAYERS_BG; ++i) {
+            drawLayer(i, camX, camY);
+        }
 	}
+    public void paintFg(Integer camX, Integer camY) {
+        Integer fgLayerCount = Constants.GRID_LAYERS-Constants.GRID_LAYERS_BG;
+        for (Integer i = 1; i <= fgLayerCount; ++i) {
+            drawLayer(i+Constants.GRID_LAYERS_BG, camX, camY);
+        }
+    }
 
     /**
-     * Draws the game tile grid to the screen. 
+     * Draws the a single 3d layer of tiles to the screen.
      * Get's the level from the {@code LevelStorage} GRID.
      * 
      * @param camX      The X-position on the entire 
      *                  level that the camera is looking at.
      * @param camY      The Y-position on the entire 
      *                  level that the camera is looking at.
+     * @param layer     The layer id that is being drawn.
      * @see 			LevelStorage
 	 * @see				LevelStorage#GRID
      */
-    protected void draw(Integer camX, Integer camY) {
+    protected void drawLayer(Integer layer, Integer camX, Integer camY) {
         Integer tileSizeW = Constants.TILE_SIZE;
         Integer tileSizeH = Constants.TILE_SIZE;
 
@@ -89,9 +98,10 @@ public class Tiles implements Disposable {
         for (Integer j = 0; j < Math.floorDiv(Constants.WINDOW_HEIGHT, Constants.TILE_SIZE)+2; j++) {
             for (Integer i = 0; i < Math.floorDiv(Constants.WINDOW_WIDTH, Constants.TILE_SIZE)+1; i++) {
                 
-                Integer gidx = Math.floorDiv(gx, Constants.TILE_SIZE);
-                gidx += levelStorage.GMAX*Math.floorDiv(gy, Constants.TILE_SIZE);
-                gidx += j*levelStorage.GMAX+i;
+                Integer gidx = Math.floorDiv(gx, Constants.TILE_SIZE);              //camX offset
+                gidx += levelStorage.GMAX*Math.floorDiv(gy, Constants.TILE_SIZE);   //camY offset
+                gidx += j*levelStorage.GMAX+i;                                      //index offset
+                gidx += (layer-1)*levelStorage.GMUL;                                //layer offset
 
                 Integer tileId;
                 try {
