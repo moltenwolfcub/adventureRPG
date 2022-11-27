@@ -2,6 +2,7 @@ package com.moltenwolfcub.adventurerpg;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Disposable;
+import com.moltenwolfcub.adventurerpg.util.CachedSprites;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 
 /**
@@ -48,7 +49,7 @@ public class Tiles implements Disposable {
         this.levelStorage = lvlStore;
         this.editor = editor;
 
-		this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/bush1");
+		this.currentTexture = CachedSprites.getSprite(game.spriteTextureAtlas, "tiles/bush1");
     }
 
     @Override
@@ -128,7 +129,7 @@ public class Tiles implements Disposable {
                 if (tileId != 0) {
                     String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
 
-                    this.currentTexture = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
+                    this.currentTexture = CachedSprites.getSprite(game.spriteTextureAtlas, "tiles/"+tileTextureName);
                     this.currentTexture.setAlpha(shouldFade?0.5f:1);
                     this.currentTexture.setBounds(originX+tileSizeW*i, originY+tileSizeH*j, tileSizeW, tileSizeH);
 

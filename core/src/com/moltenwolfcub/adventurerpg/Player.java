@@ -3,6 +3,7 @@ package com.moltenwolfcub.adventurerpg;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Disposable;
+import com.moltenwolfcub.adventurerpg.util.CachedSprites;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 import com.moltenwolfcub.adventurerpg.util.Keybinds;
 import com.moltenwolfcub.adventurerpg.util.QuadDirAnimation;
@@ -60,7 +61,7 @@ public class Player implements Disposable {
 	public Player(Rpg game) {
         this.game = game;
 
-		this.sprite = game.spriteTextureAtlas.createSprite("player/idle"+playerDir.getTextureSuffix());
+		this.sprite = CachedSprites.getSprite(game.spriteTextureAtlas, "player/idle"+playerDir.getTextureSuffix());
 		this.sprite.setScale(2);
 		setTexture(game.spriteTextureAtlas.findRegion("player/idle"+playerDir.getTextureSuffix()));
 

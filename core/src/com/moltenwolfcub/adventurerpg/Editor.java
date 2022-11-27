@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.moltenwolfcub.adventurerpg.util.CachedSprites;
 import com.moltenwolfcub.adventurerpg.util.Constants;
 import com.moltenwolfcub.adventurerpg.util.Keybinds;
 
@@ -94,15 +95,15 @@ public class Editor implements Disposable {
         this.levelStorage = lvlStore;
         this.viewport = view;
 
-        this.selectionOutline = game.spriteTextureAtlas.createSprite("editor/selectionOutline");
+        this.selectionOutline = CachedSprites.getSprite(game.spriteTextureAtlas, "editor/selectionOutline");
         this.selectionOutline.setBounds(0, 0, Constants.TILE_SIZE+4, Constants.TILE_SIZE+4);
         this.selectionOutline.setAlpha(0.7f);
         this.paletteSelectionOutline = new Sprite();
         this.paletteSelectionOutline.set(selectionOutline);
         this.paletteSelectionOutline.setAlpha(1);
 
-        this.paletteBackground = game.spriteTextureAtlas.createSprite("editor/paletteBase");
-        this.paletteChecker = game.spriteTextureAtlas.createSprite("editor/paletteCheckeredBg");
+        this.paletteBackground = CachedSprites.getSprite(game.spriteTextureAtlas, "editor/paletteBase");
+        this.paletteChecker = CachedSprites.getSprite(game.spriteTextureAtlas, "editor/paletteCheckeredBg");
         this.paletteChecker.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
         Gdx.input.setInputProcessor(input);
@@ -223,7 +224,7 @@ public class Editor implements Disposable {
                 selectionOutline.setCenter(gx*Constants.TILE_SIZE-camX+Constants.TILE_SIZE/2, gy*Constants.TILE_SIZE-camY+Constants.TILE_SIZE/2);
 
                 if (drawingTile != 0) {
-                    drawingTexture = game.spriteTextureAtlas.createSprite(
+                    drawingTexture = CachedSprites.getSprite(game.spriteTextureAtlas, 
                         "tiles/"+Constants.TILE_MAPPING_ID2STR.get(drawingTile)
                     );
                     drawingTexture.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
@@ -293,7 +294,7 @@ public class Editor implements Disposable {
                 Integer tileId = Constants.PALETTE_MAPPING_IDX2ID.get(gidx);
                 if (tileId != null) {
                     String tileTextureName = Constants.TILE_MAPPING_ID2STR.get(tileId);
-                    TextureRegion currentPaletteTile = game.spriteTextureAtlas.createSprite("tiles/"+tileTextureName);
+                    TextureRegion currentPaletteTile = CachedSprites.getSprite(game.spriteTextureAtlas, "tiles/"+tileTextureName);
     
                     if (currentPaletteTile != null) {
                         game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);

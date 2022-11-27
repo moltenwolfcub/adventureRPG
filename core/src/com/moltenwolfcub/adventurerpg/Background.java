@@ -3,6 +3,7 @@ package com.moltenwolfcub.adventurerpg;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.utils.Disposable;
 import com.moltenwolfcub.adventurerpg.util.Constants;
+import com.moltenwolfcub.adventurerpg.util.CachedSprites;
 
 /**
  * A class used to manage and draw a repeated tiled
@@ -36,7 +37,7 @@ public class Background implements Disposable {
         this.game = game;
         this.editor = editor;
 
-		this.texture = game.spriteTextureAtlas.createSprite("tiles/greenGrass1");
+		this.texture = CachedSprites.getSprite(game.spriteTextureAtlas, "tiles/greenGrass1");
     }
 
     @Override
