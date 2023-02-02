@@ -33,6 +33,7 @@ public abstract class Keybinds {
     public static final Keybind SET_LAYER_1 = new Keybind("Set Layer 1", InputType.KEY, Keys.NUM_1, EDITOR);
     public static final Keybind SET_LAYER_2 = new Keybind("Set Layer 2", InputType.KEY, Keys.NUM_2, EDITOR);
     public static final Keybind SET_LAYER_3 = new Keybind("Set Layer 3", InputType.KEY, Keys.NUM_3, EDITOR);
+    public static final Keybind EDIT_COLLIDE = new Keybind("Edit Collision Pins", InputType.KEY, Keys.P, EDITOR);
 
 	/**
 	 * A class for a keybind.

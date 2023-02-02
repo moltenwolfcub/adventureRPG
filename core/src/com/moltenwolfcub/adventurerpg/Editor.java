@@ -1,6 +1,8 @@
 package com.moltenwolfcub.adventurerpg;
 
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
@@ -44,6 +46,8 @@ public class Editor implements Disposable {
 	protected final Sprite paletteBackground;
     /** The checkered background for the tile palette.*/
 	protected final Sprite paletteChecker;
+    /** A Collision pin*/
+	protected final Sprite collisionPin;
     /** The translucent copy of the tile currently selected for drawing. This follows the mouse pointer with the outline in the level.*/
 	protected Sprite drawingTexture;
 
@@ -67,6 +71,11 @@ public class Editor implements Disposable {
 	public Integer currentLayer = 1;
 	/** The layer that is being edited.*/
 	public Boolean focusLayer = false;
+
+    /** The current mode of the palette */
+    public PaletteMode paletteEditingMode = PaletteMode.NONE;
+    /** A map to store the collision pin data for tiles */
+    public Map<Integer, Integer> collisionPins = new HashMap<Integer, Integer>();
 
     /** The direction scrolled in the last tick as a signum(-1, 0, 1)*/
     protected Integer scroll = 0;
@@ -116,6 +125,12 @@ public class Editor implements Disposable {
 		paletteCheckerPixmap.fillRectangle(0, paletteCheckerPixmap.getHeight()/2, paletteCheckerPixmap.getWidth()/2, paletteCheckerPixmap.getHeight()/2);
         this.paletteChecker = new Sprite(new Texture(paletteCheckerPixmap));
         this.paletteChecker.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
+
+		Pixmap colidePinPixmap = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        colidePinPixmap.setColor(Constants.PALETTE_COLLISION_PIN_COLOR);
+        colidePinPixmap.fillCircle(colidePinPixmap.getWidth()/2, colidePinPixmap.getHeight()/2, colidePinPixmap.getWidth()/2-1);
+		this.collisionPin = new Sprite(new Texture(colidePinPixmap));
+		this.collisionPin.setBounds(0, 0, 5, 5);
 
         Gdx.input.setInputProcessor(input);
 
@@ -202,6 +217,10 @@ public class Editor implements Disposable {
 			}
 			if (Keybinds.SET_LAYER_3.isJustPressed()) {
 				setLayer(3);
+			}
+
+			if (Keybinds.EDIT_COLLIDE.isJustPressed()) {
+				paletteEditingMode = paletteEditingMode == PaletteMode.COLLISION ? PaletteMode.NONE : PaletteMode.COLLISION;
 			}
         }
     }
@@ -309,6 +328,9 @@ public class Editor implements Disposable {
     
                     if (currentPaletteTile != null) {
                         game.batch.draw(currentPaletteTile, x, y, Constants.TILE_SIZE, Constants.TILE_SIZE);
+						if (paletteEditingMode == PaletteMode.COLLISION) {
+							paintCollisionPin(x, y);
+						}
                     }
                     if (tileId.equals(drawingTile)) {
                         paletteSelectionOutline.setPosition(x-2, y-2);
@@ -352,6 +374,40 @@ public class Editor implements Disposable {
         }
     }
 
+    /**
+     * Calculates how to draw the collision pin for a
+     * given tile position
+     * 
+     * @param x		Left pos of the tile
+     * @param y		Bottom pos of the tile
+     */
+    protected void paintCollisionPin(Integer x, Integer y) {
+		int collidePerRow = 3;
+		int tileSeperation = Math.floorDiv(Constants.TILE_SIZE, collidePerRow);
+
+		this.collisionPin.setCenter(
+			x+Constants.TILE_SIZE/2-tileSeperation,
+			y+Constants.TILE_SIZE/2-tileSeperation
+		);
+
+		for (int i = 0; i < collidePerRow; i++) {
+			for (int j = 0; j < collidePerRow; j++) {
+				drawCollisionPin();
+				
+				this.collisionPin.setX(this.collisionPin.getX()+tileSeperation);
+			}
+			this.collisionPin.setX(this.collisionPin.getX()-collidePerRow*tileSeperation);
+			this.collisionPin.setY(this.collisionPin.getY()+tileSeperation);
+		}
+    }
+
+    /**
+	 * Draws the collision pin
+	 * */
+    protected void drawCollisionPin() {
+		this.collisionPin.draw(game.batch);
+    }
+
 	/**
 	 * Gets the offset nessessary if the
 	 * palette is open.
@@ -386,4 +442,14 @@ public class Editor implements Disposable {
             currentLayer = layer;
         }
 	}
+
+    /**
+	 * A class to represent the current mode of the palette
+	 * */
+    public enum PaletteMode {
+        /** Default Palette mode */
+        NONE,
+        /** The mode for modifying collision pins */
+        COLLISION;
+    }
 }
