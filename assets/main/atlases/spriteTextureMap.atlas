@@ -4,9 +4,7 @@ items/refinedBlueCrystal1
 	bounds: 0, 0, 16, 16
 
 spriteTextureMap2.png
-	size: 32, 32
-editor/paletteCheckeredBg
-	bounds: 0, 16, 16, 16
+	size: 16, 16
 editor/selectionOutline
 	bounds: 0, 0, 16, 16
 

@@ -108,7 +108,13 @@ public class Editor implements Disposable {
         paletteBgPixmap.setColor(Constants.PALETTE_BORDER_COLOR);
 		paletteBgPixmap.fill();
         this.paletteBackground = new Sprite(new Texture(paletteBgPixmap));
-        this.paletteChecker = CachedSprites.getSprite(game.spriteTextureAtlas, "editor/paletteCheckeredBg");
+		Pixmap paletteCheckerPixmap = new Pixmap(2, 2, Pixmap.Format.RGBA8888);
+        paletteCheckerPixmap.setColor(Constants.PALETTE_CHECKER_COLOR1);
+		paletteCheckerPixmap.fill();
+        paletteCheckerPixmap.setColor(Constants.PALETTE_CHECKER_COLOR2);
+		paletteCheckerPixmap.fillRectangle(paletteCheckerPixmap.getWidth()/2, 0, paletteCheckerPixmap.getWidth()/2, paletteCheckerPixmap.getHeight()/2);
+		paletteCheckerPixmap.fillRectangle(0, paletteCheckerPixmap.getHeight()/2, paletteCheckerPixmap.getWidth()/2, paletteCheckerPixmap.getHeight()/2);
+        this.paletteChecker = new Sprite(new Texture(paletteCheckerPixmap));
         this.paletteChecker.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
         Gdx.input.setInputProcessor(input);

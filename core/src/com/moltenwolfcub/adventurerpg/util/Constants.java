@@ -38,6 +38,10 @@ public abstract class Constants {
     public static final Float EDITOR_DEFOCUSED_ALPHA = 0.25f;
     /** Color of palette border*/
     public static final Color PALETTE_BORDER_COLOR = Color.BLACK;
+    /** The first palette chcker-background color*/
+    public static final Color PALETTE_CHECKER_COLOR1 = Color.valueOf("cfdae6");
+    /** The second palette chcker-background color*/
+    public static final Color PALETTE_CHECKER_COLOR2 = Color.WHITE;
     /** The width of the Black border around the tile palette in the editor in pixels.<p>(Will be rendered differently by {@code Viewport}).*/
     public static final Integer PALETTE_BORDER_SIZE = 4;
     /** Number of Tiles visible on the palette along the X-axis.*/
