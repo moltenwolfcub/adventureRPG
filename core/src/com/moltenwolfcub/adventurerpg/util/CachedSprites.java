@@ -33,9 +33,7 @@ public class CachedSprites {
     public static Sprite getSprite(TextureAtlas atlas, String texture) {
         if (!textures.containsKey(texture)) {
             textures.put(texture, atlas.createSprite(texture));
-            System.out.println("Creating new texture");
         }
-        System.out.println("Obtained Texture");
         return textures.get(texture);
     }
 }
