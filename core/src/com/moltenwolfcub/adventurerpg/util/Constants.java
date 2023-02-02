@@ -3,6 +3,8 @@ package com.moltenwolfcub.adventurerpg.util;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * A class to store the Constant values 
  * that never change.
@@ -34,6 +36,8 @@ public abstract class Constants {
 
     /** The alpha value of tiles that aren't on the focused layer when a layer is focused*/
     public static final Float EDITOR_DEFOCUSED_ALPHA = 0.25f;
+    /** Color of palette border*/
+    public static final Color PALETTE_BORDER_COLOR = Color.BLACK;
     /** The width of the Black border around the tile palette in the editor in pixels.<p>(Will be rendered differently by {@code Viewport}).*/
     public static final Integer PALETTE_BORDER_SIZE = 4;
     /** Number of Tiles visible on the palette along the X-axis.*/

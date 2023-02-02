@@ -5,12 +5,10 @@ items/refinedBlueCrystal1
 
 spriteTextureMap2.png
 	size: 32, 32
-editor/paletteBase
-	bounds: 0, 16, 16, 16
 editor/paletteCheckeredBg
-	bounds: 0, 0, 16, 16
+	bounds: 0, 16, 16, 16
 editor/selectionOutline
-	bounds: 16, 16, 16, 16
+	bounds: 0, 0, 16, 16
 
 spriteTextureMap3.png
 	size: 128, 128

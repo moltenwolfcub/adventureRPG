@@ -158,7 +158,7 @@ public class GameScreen implements Screen {
 	 * @see		#camY
 	 */
 	public void updateCameraPos() {
-		Integer offsetWidth = editor.getPalletteOffset();
+		Integer offsetWidth = editor.getPaletteOffset();
 
 		camX = Math.min(Math.max(player.playerX+offsetWidth/2, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.WINDOW_WIDTH+offsetWidth);
 		camY = Math.min(Math.max(player.playerY, 0), levelStorage.GMAX*Constants.TILE_SIZE- Constants.WINDOW_HEIGHT);

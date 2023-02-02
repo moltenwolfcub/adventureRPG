@@ -5,6 +5,8 @@ import java.util.Iterator;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector3;
@@ -102,7 +104,10 @@ public class Editor implements Disposable {
         this.paletteSelectionOutline.set(selectionOutline);
         this.paletteSelectionOutline.setAlpha(1);
 
-        this.paletteBackground = CachedSprites.getSprite(game.spriteTextureAtlas, "editor/paletteBase");
+		Pixmap paletteBgPixmap = new Pixmap(8, 8, Pixmap.Format.RGBA8888);
+        paletteBgPixmap.setColor(Constants.PALETTE_BORDER_COLOR);
+		paletteBgPixmap.fill();
+        this.paletteBackground = new Sprite(new Texture(paletteBgPixmap));
         this.paletteChecker = CachedSprites.getSprite(game.spriteTextureAtlas, "editor/paletteCheckeredBg");
         this.paletteChecker.setBounds(0, 0, Constants.TILE_SIZE, Constants.TILE_SIZE);
 
@@ -348,7 +353,7 @@ public class Editor implements Disposable {
 	 * 				in the editor.
 	 * @see			#paletteWidth
 	 */
-    public Integer getPalletteOffset() {
+    public Integer getPaletteOffset() {
 		return inEditor ? paletteWidth : 0;
     }
 	/**
